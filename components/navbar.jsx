@@ -43,8 +43,8 @@ export function Navbar() {
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
         scrolled
-          ? "bg-white shadow-md py-2"
-          : "bg-white/90 backdrop-blur-md py-4",
+          ? "bg-white/80 backdrop-blur-xl border-b border-slate-200/50 shadow-sm py-2"
+          : "bg-white/95 backdrop-blur-md border-b border-transparent py-4",
       )}
     >
       {/* Top Bar for Contact Info */}
@@ -68,23 +68,29 @@ export function Navbar() {
       <div className="container mx-auto px-4 flex items-center justify-between">
         {/* Logos */}
         <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2">
-            {/* Placeholder for SpectraTech Logo */}
-            <Image src={Logo} alt="Logo" className="max-w-48" />
+          <Link
+            href="/"
+            className="flex items-center gap-2 transition-transform hover:scale-105 duration-300"
+          >
+            <Image
+              src={Logo}
+              alt="SpectraTech Solutions"
+              className="w-[180px] md:w-[200px]"
+              priority
+            />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-4 border-l pl-4 border-border ml-2">
-            <span className="text-xs text-muted-foreground max-w-[80px] leading-tight">
+          <div className="hidden lg:flex items-center gap-4 border-l-2 pl-5 border-slate-200 ml-4">
+            <span className="text-xs text-slate-500 max-w-[80px] leading-tight font-medium">
               Authorized Distributor of
             </span>
-            {/* Placeholder for Jinyibo Logo */}
             <a
               href="https://www.jinyibo.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="opacity-80 hover:opacity-100 transition-opacity"
+              className="opacity-90 hover:opacity-100 transition-transform hover:scale-105"
             >
-              <div className="h-8 w-24 bg-gray-200 flex items-center justify-center text-xs font-semibold text-gray-500 rounded">
+              <div className="h-9 w-28 bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold tracking-wider text-slate-600 rounded shadow-sm">
                 JINYIBO
               </div>
             </a>
@@ -99,17 +105,17 @@ export function Navbar() {
                 <NavigationMenuItem key={item.name}>
                   {item.children ? (
                     <>
-                      <NavigationMenuTrigger className="bg-transparent">
+                      <NavigationMenuTrigger className="bg-white">
                         {item.name}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-white">
                           {item.children.map((child) => (
                             <li key={child.name}>
                               <NavigationMenuLink asChild>
                                 <Link
                                   href={child.href}
-                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none bg-white transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                 >
                                   <div className="text-sm font-medium leading-none">
                                     {child.name}
@@ -124,10 +130,7 @@ export function Navbar() {
                   ) : (
                     <NavigationMenuLink
                       asChild
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "bg-transparent",
-                      )}
+                      className={cn(navigationMenuTriggerStyle(), "bg-white")}
                     >
                       <Link href={item.href}>{item.name}</Link>
                     </NavigationMenuLink>
@@ -136,6 +139,16 @@ export function Navbar() {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
+        </div>
+
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center">
+          <Button
+            asChild
+            className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold tracking-wide shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] hover:-translate-y-0.5 transition-all rounded-full px-6 py-5"
+          >
+            <Link href="/contact">Get a Quote</Link>
+          </Button>
         </div>
 
         {/* Mobile Menu Toggle */}

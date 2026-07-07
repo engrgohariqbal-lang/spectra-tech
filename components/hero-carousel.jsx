@@ -50,15 +50,16 @@ export function HeroCarousel() {
         <CarouselContent className="h-full">
           {slides.map((slide) => (
             <CarouselItem key={slide.id} className="relative h-full basis-full">
-              {/* Background Image Placeholder using div with background since we don't have real images yet. 
-                  In a real scenario, use next/image. We will simulate with next/image relying on a solid color fallback if missing. */}
+              {/* Cinematic Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent z-10"></div>
+              
               <div className="absolute inset-0 bg-slate-800">
                 <Image
                   src={slide.image}
                   alt={slide.alt}
                   fill
                   priority={slide.id === 1}
-                  className="object-cover opacity-50"
+                  className="object-cover"
                 />
               </div>
             </CarouselItem>
@@ -66,25 +67,25 @@ export function HeroCarousel() {
         </CarouselContent>
         
         {/* Carousel controls - visible on md+ screens */}
-        <div className="hidden md:block">
-          <CarouselPrevious className="left-8 bg-black/30 hover:bg-black/50 text-white border-none" />
-          <CarouselNext className="right-8 bg-black/30 hover:bg-black/50 text-white border-none" />
+        <div className="hidden md:block z-20 relative">
+          <CarouselPrevious className="left-8 bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md" />
+          <CarouselNext className="right-8 bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md" />
         </div>
       </Carousel>
 
       {/* Persistent Overlay Text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto space-y-6 pointer-events-auto bg-black/40 p-8 md:p-12 rounded-xl backdrop-blur-sm border border-white/10">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight shadow-sm text-balance">
+      <div className="absolute inset-0 flex items-center pointer-events-none z-20">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="max-w-3xl space-y-6 pointer-events-auto">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight drop-shadow-lg text-balance">
               Powering Precision Analysis <br className="hidden md:block" />
-              <span className="text-accent">— In Pakistan and Beyond</span>
+              <span className="text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">— In Pakistan and Beyond</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-200 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
               SpectraTech Solutions is the authorized Pakistan distributor for Wuxi Jinyibo Instrument Technology — bringing OES, XRF, EDXRF, ICP and Carbon-Sulfur analyzers to Pakistan&apos;s steel, foundry, metal, mining, power and chemical industries, with local sales, installation and after-sales service.
             </p>
-            <div className="pt-4 flex justify-center">
-              <Button asChild size="lg" className="bg-primary hover:bg-secondary text-white font-semibold text-lg px-8 py-6 rounded-full shadow-lg transition-transform hover:scale-105">
+            <div className="pt-6">
+              <Button asChild size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-lg px-8 py-7 rounded-full shadow-[0_0_30px_-5px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_0px_rgba(16,185,129,0.7)] transition-all duration-300 hover:-translate-y-1">
                 <Link href="/products">
                   Explore Our Products
                 </Link>
