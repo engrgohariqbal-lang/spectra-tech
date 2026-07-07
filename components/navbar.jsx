@@ -2,12 +2,14 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, Mail, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/data/content";
 import { navigation } from "@/lib/data/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Logo } from "@/public/images";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -68,17 +70,7 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           <Link href="/" className="flex items-center gap-2">
             {/* Placeholder for SpectraTech Logo */}
-            <div className="w-10 h-10 bg-primary text-white flex items-center justify-center font-bold text-xl rounded">
-              ST
-            </div>
-            <div className="hidden sm:block">
-              <span className="font-bold text-xl text-primary tracking-tight block leading-tight">
-                SpectraTech
-              </span>
-              <span className="text-xs text-muted-foreground tracking-widest uppercase">
-                Solutions
-              </span>
-            </div>
+            <Image src={Logo} alt="Logo" className="max-w-48" />
           </Link>
 
           <div className="hidden lg:flex items-center gap-4 border-l pl-4 border-border ml-2">
@@ -137,9 +129,7 @@ export function Navbar() {
                         "bg-transparent",
                       )}
                     >
-                      <Link href={item.href}>
-                        {item.name}
-                      </Link>
+                      <Link href={item.href}>{item.name}</Link>
                     </NavigationMenuLink>
                   )}
                 </NavigationMenuItem>

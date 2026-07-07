@@ -20,22 +20,18 @@ export const metadata = {
 };
 
 import { JsonLd } from "@/components/json-ld";
+import { icons } from "lucide-react";
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <head>
         <JsonLd />
       </head>
       <body className="min-h-full flex flex-col font-sans">
         <Navbar />
         <ContactSlidePanel />
-        <main className="flex-1 pt-[72px]">
-          {children}
-        </main>
+        <main className="flex-1 pt-[72px]">{children}</main>
         <Footer />
         <Toaster />
       </body>
