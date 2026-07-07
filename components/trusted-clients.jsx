@@ -3,49 +3,43 @@
 import React from "react";
 import Image from "next/image";
 
-// Placeholder logos for 10 clients
-const clientLogos = Array.from({ length: 10 }).map((_, i) => ({
+const clientNames = [
+  "PakSteel", "FoundryTech", "MetalWorks", "PrimeAlloys", 
+  "GlobalMining", "PowerChem", "IronForge", "CrescentSteel", 
+  "AlphaMetals", "AtlasFoundry"
+];
+
+const clientLogos = clientNames.map((name, i) => ({
   id: i + 1,
-  // Suggesting to the user to place files like client-1.png in public/clients/
-  src: `/clients/placeholder-${(i % 5) + 1}.svg`, 
-  alt: `Client ${i + 1}`
+  name: name
 }));
 
 export function TrustedClients() {
   return (
-    <section className="py-16 bg-slate-50 overflow-hidden">
-      <div className="container mx-auto px-4 mb-10 text-center">
-        <h2 className="text-3xl font-bold text-slate-900 tracking-tight">Trusted by 200+ Clients Across Pakistan</h2>
-        <div className="w-20 h-1 bg-accent mx-auto mt-4 rounded-full"></div>
+    <section className="py-16 md:py-24 bg-slate-50 overflow-hidden border-t border-slate-100">
+      <div className="container mx-auto px-4 mb-12 text-center">
+        <h2 className="text-3xl font-bold text-slate-900 tracking-tight text-balance">Trusted by 200+ Clients Across Pakistan</h2>
+        <div className="w-20 h-1 bg-accent mx-auto mt-6 rounded-full"></div>
       </div>
       
       {/* Marquee Container */}
-      <div className="relative flex overflow-x-hidden group">
-        <div className="animate-marquee whitespace-nowrap flex items-center gap-12 md:gap-24 px-6 md:px-12 group-hover:pause-animation">
+      <div className="relative flex overflow-x-hidden group py-4">
+        <div className="animate-marquee whitespace-nowrap flex items-center gap-8 md:gap-16 px-4 md:px-8 group-hover:pause-animation">
           {clientLogos.map((logo, index) => (
-            <div key={`logo-set1-${index}`} className="flex-shrink-0 relative w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-              {/* Using a solid div fallback for missing images during dev */}
-              <div className="w-full h-full bg-slate-200 rounded flex items-center justify-center overflow-hidden">
-                <span className="text-xs text-slate-400 font-medium">LOGO {logo.id}</span>
-                {/* 
-                  <Image 
-                    src={logo.src} 
-                    alt={logo.alt} 
-                    fill 
-                    className="object-contain" 
-                  /> 
-                */}
+            <div key={`logo-set1-${index}`} className="flex-shrink-0 relative transition-transform duration-300 hover:scale-105 hover:-translate-y-1">
+              <div className="w-40 h-16 bg-white border border-slate-200 shadow-sm rounded-xl flex items-center justify-center overflow-hidden hover:shadow-md hover:border-primary/30 transition-all">
+                <span className="text-lg font-extrabold text-slate-400 tracking-wider uppercase">{logo.name}</span>
               </div>
             </div>
           ))}
         </div>
 
         {/* Duplicate for seamless infinite scrolling */}
-        <div className="absolute top-0 animate-marquee2 whitespace-nowrap flex items-center gap-12 md:gap-24 px-6 md:px-12 group-hover:pause-animation">
+        <div className="absolute top-0 py-4 animate-marquee2 whitespace-nowrap flex items-center gap-8 md:gap-16 px-4 md:px-8 group-hover:pause-animation">
           {clientLogos.map((logo, index) => (
-            <div key={`logo-set2-${index}`} className="flex-shrink-0 relative w-32 h-16 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
-              <div className="w-full h-full bg-slate-200 rounded flex items-center justify-center overflow-hidden">
-                <span className="text-xs text-slate-400 font-medium">LOGO {logo.id}</span>
+            <div key={`logo-set2-${index}`} className="flex-shrink-0 relative transition-transform duration-300 hover:scale-105 hover:-translate-y-1">
+              <div className="w-40 h-16 bg-white border border-slate-200 shadow-sm rounded-xl flex items-center justify-center overflow-hidden hover:shadow-md hover:border-primary/30 transition-all">
+                <span className="text-lg font-extrabold text-slate-400 tracking-wider uppercase">{logo.name}</span>
               </div>
             </div>
           ))}

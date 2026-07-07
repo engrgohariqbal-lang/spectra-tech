@@ -14,6 +14,21 @@ export async function POST(request) {
     }
 
     /* 
+      // TODO: once Supabase is connected, insert into "contact_submissions" table here
+      // Example implementation:
+      // import { createClient } from '@/lib/supabase/server';
+      // const supabase = await createClient();
+      // const { error: dbError } = await supabase
+      //   .from('contact_submissions')
+      //   .insert([{ name, company, email, phone, message }]);
+      // 
+      // if (dbError) {
+      //   console.error("Database insert failed:", dbError);
+      //   // decide whether to return error or continue to email
+      // }
+    */
+
+    /* 
       TODO: Configure your email credentials here or in .env.local
       
       Example .env.local:

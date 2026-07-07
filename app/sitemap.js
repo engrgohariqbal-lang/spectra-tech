@@ -1,6 +1,6 @@
-import { products } from "@/lib/data/products";
+import { getProducts } from "@/lib/data-access";
 
-export default function sitemap() {
+export default async function sitemap() {
   const baseUrl = "https://www.spectratech.com.pk"; // Replace with actual domain once known
 
   const staticRoutes = [
@@ -18,6 +18,8 @@ export default function sitemap() {
     changeFrequency: "weekly",
     priority: route === "" ? 1 : 0.8,
   }));
+
+  const products = await getProducts();
 
   const productRoutes = products.map((product) => ({
     url: `${baseUrl}/products/${product.slug}`,

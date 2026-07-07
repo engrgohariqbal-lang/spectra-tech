@@ -1,15 +1,17 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { solutions } from "@/lib/data/content";
+import { getSolutions } from "@/lib/data-access";
 import { Button } from "@/components/ui/button";
 
-export function OurSolutions() {
+export async function OurSolutions() {
+  const solutions = await getSolutions();
+
   return (
     <section className="py-20 bg-slate-50">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4 text-balance">
             Our Solutions
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto mb-6 rounded-full"></div>

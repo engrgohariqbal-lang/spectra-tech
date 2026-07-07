@@ -2,17 +2,18 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { products } from "@/lib/data/products";
+import { getProducts, getProductBySlug } from "@/lib/data-access";
 import { Button } from "@/components/ui/button";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const products = await getProducts();
   return products.map((product) => ({
     slug: product.slug,
   }));
 }
 
-export function generateMetadata({ params }) {
-  const product = products.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }) {
+  const product = await getProductBySlug(params.slug);
   if (!product) {
     return { title: "Product Not Found" };
   }
@@ -22,8 +23,8 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function ProductPage({ params }) {
-  const product = products.find((p) => p.slug === params.slug);
+export default async function ProductPage({ params }) {
+  const product = await getProductBySlug(params.slug);
 
   if (!product) {
     notFound();

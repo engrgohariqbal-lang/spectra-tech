@@ -1,14 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { products } from "@/lib/data/products";
+import { getProducts } from "@/lib/data-access";
 
 export const metadata = {
   title: "Products",
   description: "Explore our range of analytical instruments including OES, XRF, EDXRF and Carbon-Sulfur analyzers.",
 };
 
-export default function ProductsIndexPage() {
+export default async function ProductsPage() {
+  const products = await getProducts();
+
   return (
     <div className="py-12 md:py-20 bg-slate-50 min-h-screen">
       <div className="container mx-auto px-4">

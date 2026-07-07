@@ -16,19 +16,22 @@ import { Button } from "@/components/ui/button";
 const slides = [
   {
     id: 1,
-    image: "/placeholder-hero-1.jpg",
+    image: "https://picsum.photos/seed/spectratech-hero-1/1600/900",
     alt: "Industrial facility in Pakistan",
+    title: "Precision Elemental Analysis",
   },
   {
     id: 2,
-    image: "/placeholder-hero-2.jpg",
+    image: "https://picsum.photos/seed/spectratech-hero-2/1600/900",
     alt: "Precision analytical instruments installation",
+    title: "Advanced OES Technology",
   },
   {
     id: 3,
-    image: "/placeholder-hero-3.jpg",
+    image: "https://picsum.photos/seed/spectratech-hero-3/1600/900",
     alt: "Engineers working on OES machines",
-  }
+    title: "Dedicated After-Sales Service",
+  },
 ];
 
 export function HeroCarousel() {
@@ -56,10 +59,6 @@ export function HeroCarousel() {
                   fill
                   priority={slide.id === 1}
                   className="object-cover opacity-50"
-                  onError={(e) => {
-                    // Fallback if placeholder doesn't exist
-                    e.currentTarget.style.display = 'none';
-                  }}
                 />
               </div>
             </CarouselItem>
@@ -77,7 +76,7 @@ export function HeroCarousel() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto space-y-6 pointer-events-auto bg-black/40 p-8 md:p-12 rounded-xl backdrop-blur-sm border border-white/10">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight shadow-sm">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight shadow-sm text-balance">
               Powering Precision Analysis <br className="hidden md:block" />
               <span className="text-accent">— In Pakistan and Beyond</span>
             </h1>
