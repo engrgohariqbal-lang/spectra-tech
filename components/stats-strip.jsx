@@ -11,8 +11,7 @@ function useCountUp(endValue, duration = 2000, trigger) {
 
     let startTime = null;
     let animationFrame;
-    
-    // Extract numeric part (e.g. "200+" -> 200)
+
     const endNumeric = parseInt(endValue.replace(/[^0-9]/g, "")) || 0;
     if (endNumeric === 0) {
       setCount(endNumeric);
@@ -22,25 +21,19 @@ function useCountUp(endValue, duration = 2000, trigger) {
     const step = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = Math.min((timestamp - startTime) / duration, 1);
-      
-      // easeOutExpo
       const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      
       setCount(Math.floor(easeProgress * endNumeric));
-      
       if (progress < 1) {
         animationFrame = window.requestAnimationFrame(step);
       }
     };
-    
+
     animationFrame = window.requestAnimationFrame(step);
-    
     return () => {
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
     };
   }, [endValue, duration, trigger]);
 
-  // Re-append any non-numeric suffix (e.g., "+")
   const suffix = endValue.replace(/[0-9]/g, "");
   return count + suffix;
 }
@@ -48,7 +41,7 @@ function useCountUp(endValue, duration = 2000, trigger) {
 function StatItem({ value, label }) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
-  
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -57,9 +50,8 @@ function StatItem({ value, label }) {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
-    
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -67,12 +59,18 @@ function StatItem({ value, label }) {
   const animatedValue = useCountUp(value, 2000, isVisible);
 
   return (
-    <div ref={ref} className="flex flex-col items-center justify-center text-center p-6">
-      <div className="text-4xl md:text-5xl font-bold text-white mb-4">
+    <div
+      ref={ref}
+      className="flex flex-col items-center justify-center text-center py-10 px-4 border-r border-white/10 last:border-r-0"
+    >
+      <div className="text-4xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">
         {isVisible ? animatedValue : "0"}
       </div>
-      <div className="w-12 h-1 bg-accent mb-4 rounded-full transition-all duration-1000 delay-300" style={{ width: isVisible ? '3rem' : '0' }}></div>
-      <div className="text-sm md:text-base font-medium text-slate-200">
+      <div
+        className="w-10 h-0.5 bg-[#c8d400] mb-3 transition-all duration-700"
+        style={{ width: isVisible ? "2.5rem" : "0" }}
+      />
+      <div className="text-sm md:text-base font-medium text-white/80 text-center">
         {label}
       </div>
     </div>
@@ -81,9 +79,9 @@ function StatItem({ value, label }) {
 
 export function StatsStrip() {
   return (
-    <section className="bg-primary py-12 md:py-16">
+    <section className="bg-primary">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-primary/20 md:divide-white/10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {stats.map((stat, idx) => (
             <StatItem key={idx} value={stat.value} label={stat.label} />
           ))}

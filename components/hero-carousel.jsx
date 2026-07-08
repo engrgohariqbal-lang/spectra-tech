@@ -8,29 +8,35 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
 
 const slides = [
   {
     id: 1,
-    image: "https://picsum.photos/id/1/600/400",
-    alt: "Industrial facility in Pakistan",
-    title: "Precision Elemental Analysis",
+    image: "https://picsum.photos/id/1018/1600/800",
+    alt: "Industrial facility - SpectraTech Solutions Pakistan",
+    title: "Materials Analysis & Technical\nCleanliness Inspection",
+    subtitle:
+      "We manufacture analytical instruments and services that make the invisible accessible, so you can make the impossible come true.",
+    cta: { label: "THIS IS OUR STORY", href: "/about" },
   },
   {
     id: 2,
-    image: "https://picsum.photos/id/2/600/400",
-    alt: "Precision analytical instruments installation",
-    title: "Advanced OES Technology",
+    image: "https://picsum.photos/id/1040/1600/800",
+    alt: "Precision analytical instruments - OES Spectrometer Pakistan",
+    title: "Advanced OES & XRF\nTechnology For Pakistan",
+    subtitle:
+      "SpectraTech Solutions is Pakistan's authorized distributor for Wuxi Jinyibo Instrument Technology, delivering precision to every lab.",
+    cta: { label: "EXPLORE PRODUCTS", href: "/products" },
   },
   {
     id: 3,
-    image: "https://picsum.photos/id/3/600/400",
-    alt: "Engineers working on OES machines",
-    title: "Dedicated After-Sales Service",
+    image: "https://picsum.photos/id/1062/1600/800",
+    alt: "Engineers working on OES machines - SpectraTech after-sales service",
+    title: "Dedicated After-Sales\nService & Support",
+    subtitle:
+      "Engineer-led installation, calibration, training, and maintenance — ensuring your instruments perform at their best, every day.",
+    cta: { label: "CONTACT US", href: "/contact" },
   },
 ];
 
@@ -38,15 +44,17 @@ export function HeroCarousel() {
   const [plugin] = React.useState(() =>
     Autoplay({ delay: 5000, stopOnInteraction: true }),
   );
+  const [current, setCurrent] = React.useState(0);
 
   return (
-    <section className="relative w-full h-[600px] md:h-[700px] lg:h-[800px] bg-slate-900 overflow-hidden">
+    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-slate-900">
       <Carousel
         plugins={[plugin]}
         className="w-full h-full"
-        opts={{
-          loop: true,
-          duration: 40,
+        opts={{ loop: true, duration: 40 }}
+        setApi={(api) => {
+          if (!api) return;
+          api.on("select", () => setCurrent(api.selectedScrollSnap()));
         }}
       >
         <CarouselContent className="h-full">
@@ -59,45 +67,43 @@ export function HeroCarousel() {
                 priority={slide.id === 1}
                 className="object-cover z-0"
               />
-              
-              {/* Cinematic Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent z-10"></div>
+              {/* Dark gradient overlay from left */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent z-10" />
             </CarouselItem>
           ))}
         </CarouselContent>
 
-        {/* Carousel controls - visible on md+ screens */}
-        <div className="hidden md:block z-20 relative">
-          <CarouselPrevious className="left-8 bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md" />
-          <CarouselNext className="right-8 bg-white/10 hover:bg-white/20 text-white border-white/20 backdrop-blur-md" />
+        {/* Dot indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === current ? "w-8 bg-white" : "w-4 bg-white/50"
+              }`}
+            />
+          ))}
         </div>
       </Carousel>
 
       {/* Persistent Overlay Text */}
       <div className="absolute inset-0 flex items-center pointer-events-none z-20">
         <div className="container mx-auto px-6 md:px-12">
-          <div className="max-w-3xl space-y-6 pointer-events-auto">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight drop-shadow-lg text-balance">
-              Powering Precision Analysis <br className="hidden md:block" />
-              <span className="text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">
-                — In Pakistan and Beyond
-              </span>
+          <div className="max-w-2xl space-y-5 pointer-events-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] drop-shadow-lg whitespace-pre-line">
+              {slides[current]?.title || slides[0].title}
             </h1>
-            <p className="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
-              SpectraTech Solutions is the authorized Pakistan distributor for
-              Wuxi Jinyibo Instrument Technology — bringing OES, XRF, EDXRF, ICP
-              and Carbon-Sulfur analyzers to Pakistan&apos;s steel, foundry,
-              metal, mining, power and chemical industries, with local sales,
-              installation and after-sales service.
+            <p className="text-base md:text-lg text-slate-200 max-w-xl leading-relaxed">
+              {slides[current]?.subtitle || slides[0].subtitle}
             </p>
-            <div className="pt-6">
-              <Button
-                asChild
-                size="lg"
-                className="bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-lg px-8 py-7 rounded-full shadow-[0_0_30px_-5px_rgba(16,185,129,0.5)] hover:shadow-[0_0_40px_0px_rgba(16,185,129,0.7)] transition-all duration-300 hover:-translate-y-1"
+            <div className="pt-4">
+              <Link
+                href={slides[current]?.cta.href || "/about"}
+                className="inline-block border-2 border-white text-white font-bold tracking-widest text-sm px-8 py-3.5 hover:bg-white hover:text-primary transition-all duration-300"
               >
-                <Link href="/products">Explore Our Products</Link>
-              </Button>
+                {slides[current]?.cta.label || "THIS IS OUR STORY"}
+              </Link>
             </div>
           </div>
         </div>

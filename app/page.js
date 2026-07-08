@@ -1,6 +1,6 @@
 import { HeroCarousel } from "@/components/hero-carousel";
+import { AboutUsSection } from "@/components/about-us-section";
 import { StatsStrip } from "@/components/stats-strip";
-import { TrustedClients } from "@/components/trusted-clients";
 import { ExploreProducts } from "@/components/explore-products";
 import { OurSolutions } from "@/components/our-solutions";
 import { CustomersSay } from "@/components/customers-say";
@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <>
       <HeroCarousel />
+      <AboutUsSection />
       <StatsStrip />
-      <TrustedClients />
       <ExploreProducts />
       <OurSolutions />
       <CustomersSay />
