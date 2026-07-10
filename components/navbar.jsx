@@ -99,7 +99,7 @@ export function Navbar() {
               aria-label="Toggle Menu"
               className="relative z-50 text-slate-800 hover:text-primary transition-colors"
             >
-              {isOpen ? <X className="h-6.5 w-6.5" /> : <Menu className="h-6.5 w-6.5" />}
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
@@ -139,7 +139,7 @@ export function Navbar() {
                             <Link
                               key={child.name}
                               href={child.href}
-                              className="text-sm font-semibold text-slate-650 hover:text-primary py-2.5 border-l-2 border-transparent hover:border-primary pl-3 transition-all"
+                              className="text-sm font-semibold text-slate-600 hover:text-primary py-2.5 border-l-2 border-transparent hover:border-primary pl-3 transition-all"
                               onClick={() => setIsOpen(false)}
                             >
                               {child.name}
@@ -199,7 +199,7 @@ export function Navbar() {
                 className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20BA5A] text-white transition-colors duration-300 py-3.5 px-4 rounded-xl text-sm font-bold shadow-md shadow-green-500/10"
               >
                 <svg
-                  className="w-4.5 h-4.5 fill-current"
+                  className="w-5 h-5 fill-current"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >

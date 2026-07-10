@@ -39,8 +39,8 @@ export function CustomerShowcase() {
             
             {/* Control buttons group */}
             <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
-              <CarouselPrevious className="static translate-y-0 h-10 w-10 rounded-full border border-slate-200 bg-white hover:bg-primary hover:text-white hover:border-primary text-slate-650 transition-all duration-300 shadow-sm" />
-              <CarouselNext className="static translate-y-0 h-10 w-10 rounded-full border border-slate-200 bg-white hover:bg-primary hover:text-white hover:border-primary text-slate-650 transition-all duration-300 shadow-sm" />
+              <CarouselPrevious className="static translate-y-0 h-10 w-10 rounded-full border border-slate-200 bg-white hover:bg-primary hover:text-white hover:border-primary text-slate-600 transition-all duration-300 shadow-sm" />
+              <CarouselNext className="static translate-y-0 h-10 w-10 rounded-full border border-slate-200 bg-white hover:bg-primary hover:text-white hover:border-primary text-slate-600 transition-all duration-300 shadow-sm" />
             </div>
           </div>
 
