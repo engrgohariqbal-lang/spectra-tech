@@ -28,73 +28,94 @@ export async function ExploreProducts() {
     .filter(Boolean);
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="relative py-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/80 overflow-hidden">
+      {/* Decorative Blur Blobs */}
+      <div className="absolute top-1/4 left-0 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/5 rounded-full filter blur-3xl pointer-events-none" />
+
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="mb-10">
-          <div className="w-14 h-1 bg-primary mb-4" />
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="mb-14">
+          <div className="w-14 h-1 bg-primary mb-4 rounded-full" />
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-4 tracking-tight">
                 Explore Our Products
               </h2>
-              <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
-                Jinyibo is leading manufacturer of Optical Emission Spectrometer,
-                Carbon Sulfur Analyzer, XRF Spectrometers, LIBS Analyzer, ICP
-                Spectrometers, Technical Cleanliness Cabinet and more. SpectraTech
-                Solutions is Pakistan&apos;s authorized distributor.
+              <p className="text-slate-500 max-w-2xl text-sm md:text-base leading-relaxed">
+                Jinyibo is a leading global manufacturer of Optical Emission Spectrometers,
+                Carbon/Sulfur Analyzers, XRF systems, and more. SpectraTech Solutions is Pakistan's premier authorized partner.
               </p>
             </div>
             <Link
               href="/products"
-              className="shrink-0 inline-block border border-primary text-primary font-bold tracking-widest text-xs px-8 py-3 hover:bg-primary hover:text-white transition-all duration-300 uppercase whitespace-nowrap"
+              className="shrink-0 inline-block border-2 border-primary text-primary font-bold tracking-widest text-xs px-8 py-3.5 hover:bg-primary hover:text-white transition-all duration-300 uppercase whitespace-nowrap rounded-sm"
             >
-              Explore More
+              Explore All Products
             </Link>
           </div>
         </div>
 
         {/* Products Grid — 3 columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProducts.map((product) => (
             <Link
               key={product.slug}
               href={`/products/${product.slug}`}
-              className="group block bg-[#f5f6fa] rounded-sm overflow-hidden hover:shadow-lg transition-shadow duration-300"
+              className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-200/60 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
             >
-              {/* Category Label */}
-              <div className="px-5 pt-5 pb-2">
-                <span className="text-[10px] font-bold tracking-[0.15em] text-slate-400 uppercase">
-                  {categoryLabels[product.slug] || product.name}
-                </span>
-              </div>
-
-              {/* Product Image */}
-              <div className="relative h-52 mx-5 mb-5 bg-white overflow-hidden">
+              {/* Product Image Container */}
+              <div className="relative h-60 bg-gradient-to-b from-slate-50/50 to-white overflow-hidden p-6 flex items-center justify-center border-b border-slate-100">
                 <Image
                   src={product.image}
                   alt={product.name}
                   fill
-                  className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                  className="object-contain p-6 group-hover:scale-110 transition-transform duration-500 ease-out"
                 />
+                
+                {/* Floating pill badge for model count */}
+                {product.models?.length > 0 && (
+                  <div className="absolute top-4 right-4 bg-primary/10 backdrop-blur-md text-primary font-bold text-[10px] px-3 py-1.5 rounded-full tracking-wider uppercase border border-primary/25">
+                    {product.models.length} {product.models.length === 1 ? "Model" : "Models"}
+                  </div>
+                )}
               </div>
 
-              {/* Product Name */}
-              <div className="px-5 pb-4">
-                <h3 className="font-bold text-slate-800 text-base leading-snug text-center group-hover:text-primary transition-colors">
-                  {product.name}
-                </h3>
-              </div>
+              {/* Product Info */}
+              <div className="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  {/* Category Label */}
+                  <span className="inline-block text-[10px] font-extrabold tracking-widest text-[#1a5fad] uppercase mb-2">
+                    {categoryLabels[product.slug] || "Precision Analyzer"}
+                  </span>
+                  
+                  {/* Product Name */}
+                  <h3 className="font-extrabold text-slate-900 text-lg leading-snug mb-2 group-hover:text-primary transition-colors">
+                    {product.name}
+                  </h3>
 
-              {/* MORE + pill */}
-              <div className="flex justify-center pb-6">
-                <div className="flex flex-col items-center justify-center w-16 h-16 rounded-full bg-white border border-slate-200 shadow-sm group-hover:border-primary group-hover:bg-primary transition-all duration-300">
-                  <span className="text-[10px] font-bold tracking-widest text-slate-500 group-hover:text-white transition-colors uppercase leading-tight">
-                    MORE
-                  </span>
-                  <span className="text-slate-400 group-hover:text-white transition-colors text-lg font-light leading-none">
-                    +
-                  </span>
+                  {/* Product Description */}
+                  <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">
+                    {product.description}
+                  </p>
+                </div>
+
+                {/* VIEW SPECIFICATIONS button style */}
+                <div className="flex items-center gap-2 text-sm font-bold text-slate-800 group-hover:text-primary transition-colors mt-auto">
+                  <span className="tracking-wider uppercase text-xs">View Specifications</span>
+                  <svg
+                    className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2.5}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
                 </div>
               </div>
             </Link>

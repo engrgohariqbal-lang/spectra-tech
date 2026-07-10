@@ -61,16 +61,16 @@ function StatItem({ value, label }) {
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center justify-center text-center py-10 px-4 border-r border-white/10 last:border-r-0"
+      className="flex flex-col items-center justify-center text-center py-12 px-6"
     >
-      <div className="text-4xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">
+      <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-3 tracking-tight">
         {isVisible ? animatedValue : "0"}
       </div>
       <div
-        className="w-10 h-0.5 bg-[#c8d400] mb-3 transition-all duration-700"
-        style={{ width: isVisible ? "2.5rem" : "0" }}
+        className="w-12 h-0.5 bg-[#c8d400] mb-4 transition-all duration-700"
+        style={{ width: isVisible ? "3rem" : "0" }}
       />
-      <div className="text-sm md:text-base font-medium text-white/80 text-center">
+      <div className="text-sm md:text-base font-semibold text-white/90 uppercase tracking-widest text-center">
         {label}
       </div>
     </div>
@@ -79,9 +79,9 @@ function StatItem({ value, label }) {
 
 export function StatsStrip() {
   return (
-    <section className="bg-primary">
+    <section className="bg-primary border-y border-white/5">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
           {stats.map((stat, idx) => (
             <StatItem key={idx} value={stat.value} label={stat.label} />
           ))}
