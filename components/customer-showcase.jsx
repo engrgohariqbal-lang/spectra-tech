@@ -12,7 +12,7 @@ import {
 const showcaseItems = [
   { id: 1, title: "Steel Mill Installation", location: "Lahore, Pakistan", image: "https://images.unsplash.com/photo-1563784462386-044fd95e9852?auto=format&fit=crop&w=800&h=600&q=80" },
   { id: 2, title: "OES Calibration Session", location: "Faisalabad, Pakistan", image: "https://images.unsplash.com/photo-1581093806997-124204d9fa9d?auto=format&fit=crop&w=800&h=600&q=80" },
-  { id: 3, title: "Foundry Testing Lab", location: "Karachi, Pakistan", image: "https://images.unsplash.com/photo-1532187863486-abf9d39d66e8?auto=format&fit=crop&w=800&h=600&q=80" },
+  { id: 3, title: "Foundry Testing Lab", location: "Karachi, Pakistan", image: "https://images.unsplash.com/photo-1532187643603-ba119941d398?auto=format&fit=crop&w=800&h=600&q=80" },
   { id: 4, title: "XRF Field Analysis", location: "Sialkot, Pakistan", image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&h=600&q=80" },
   { id: 5, title: "Metal Sorting Facility", location: "Gujranwala, Pakistan", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&h=600&q=80" },
 ];
