@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ContactSlidePanel } from "@/components/contact-slide-panel";
+import { RouteLoader } from "@/components/route-loader";
 import { siteConfig } from "@/lib/data/content";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col font-sans">
         <Navbar />
         <ContactSlidePanel />
+        <RouteLoader />
         <main className="flex-1 pt-[72px] md:pt-[120px]">{children}</main>
         <Footer />
         <Toaster />

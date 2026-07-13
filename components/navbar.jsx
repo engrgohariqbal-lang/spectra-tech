@@ -15,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SpectraTechLogo, SpTech } from "../public/images";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -35,14 +36,17 @@ export function Navbar() {
   return (
     <header className="fixed top-0 w-full z-50 shadow-md">
       {/* ── Row 1: Logo | Search | Contact ── */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="py-4 bg-white border-b border-slate-200">
         <div className="container mx-auto px-4 flex items-center justify-between h-[72px] gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 transition-transform hover:scale-105 duration-300">
+          <Link
+            href="/"
+            className="flex items-center gap-3 shrink-0 transition-transform hover:scale-105 duration-300"
+          >
             <Image
-              src={Logo}
+              src={SpectraTechLogo}
               alt="SpectraTech Solutions"
-              className="h-12 w-auto"
+              className="h-32 w-auto"
               priority
             />
           </Link>
@@ -99,7 +103,11 @@ export function Navbar() {
               aria-label="Toggle Menu"
               className="relative z-50 text-slate-800 hover:text-primary transition-colors"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </Button>
           </div>
         </div>
@@ -111,7 +119,7 @@ export function Navbar() {
           "absolute left-0 w-full bg-white border-t border-slate-200/80 shadow-2xl z-40 transition-all duration-500 ease-in-out transform origin-top md:hidden overflow-hidden",
           isOpen
             ? "opacity-100 translate-y-0 scale-y-100 pointer-events-auto max-h-[85vh] overflow-y-auto"
-            : "opacity-0 -translate-y-4 scale-y-95 pointer-events-none max-h-0"
+            : "opacity-0 -translate-y-4 scale-y-95 pointer-events-none max-h-0",
         )}
         style={{ top: "72px" }}
       >
@@ -123,13 +131,18 @@ export function Navbar() {
                 key={item.name}
                 className={cn(
                   "transform transition-all duration-500 ease-out",
-                  isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                  isOpen
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-4 opacity-0",
                 )}
                 style={{ transitionDelay: `${idx * 40}ms` }}
               >
                 {item.children ? (
                   <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value={item.name} className="border-b border-slate-100">
+                    <AccordionItem
+                      value={item.name}
+                      className="border-b border-slate-100"
+                    >
                       <AccordionTrigger className="py-3.5 hover:no-underline text-base font-bold text-slate-800 hover:text-primary">
                         {item.name}
                       </AccordionTrigger>
@@ -166,13 +179,13 @@ export function Navbar() {
           <div
             className={cn(
               "space-y-4 pt-4 border-t border-slate-100 transform transition-all duration-500 ease-out delay-150",
-              isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
             )}
           >
             <h4 className="text-xs font-black tracking-widest text-slate-400 uppercase">
               Get In Touch
             </h4>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <a
                 href={`tel:${siteConfig.contact.phone.replace(/[^+\d]/g, "")}`}
@@ -224,7 +237,9 @@ export function Navbar() {
       <nav
         ref={dropdownRef}
         className="hidden md:block bg-primary"
-        style={{ background: "linear-gradient(to right, #1a5fad 85%, #00b09b)" }}
+        style={{
+          background: "linear-gradient(to right, #1a5fad 85%, #00b09b)",
+        }}
       >
         <div className="container mx-auto px-4">
           <ul className="flex items-stretch">
@@ -234,18 +249,21 @@ export function Navbar() {
                   <>
                     <button
                       onClick={() =>
-                        setActiveDropdown(activeDropdown === item.name ? null : item.name)
+                        setActiveDropdown(
+                          activeDropdown === item.name ? null : item.name,
+                        )
                       }
                       className={cn(
                         "flex items-center gap-1 px-5 py-4 text-sm font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors h-full whitespace-nowrap",
-                        activeDropdown === item.name && "bg-white/10 text-white border-b-2 border-white"
+                        activeDropdown === item.name &&
+                          "bg-white/10 text-white border-b-2 border-white",
                       )}
                     >
                       {item.name}
                       <ChevronDown
                         className={cn(
                           "w-3.5 h-3.5 transition-transform duration-200",
-                          activeDropdown === item.name && "rotate-180"
+                          activeDropdown === item.name && "rotate-180",
                         )}
                       />
                     </button>
