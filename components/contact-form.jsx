@@ -19,6 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+import { useEffect } from "react";
+
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
   company: z.string().optional(),
@@ -27,7 +29,7 @@ const formSchema = z.object({
   message: z.string().min(10, { message: "Message must be at least 10 characters." }),
 });
 
-export function ContactForm() {
+export function ContactForm({ defaultMessage = "" }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm({
@@ -37,9 +39,15 @@ export function ContactForm() {
       company: "",
       email: "",
       phone: "",
-      message: "",
+      message: defaultMessage,
     },
   });
+
+  useEffect(() => {
+    if (defaultMessage) {
+      form.setValue("message", defaultMessage);
+    }
+  }, [defaultMessage, form]);
 
   async function onSubmit(values) {
     setIsSubmitting(true);

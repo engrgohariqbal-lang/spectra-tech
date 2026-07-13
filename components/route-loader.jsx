@@ -128,8 +128,8 @@ function LoaderContent() {
 
               {/* Inner Glowing Ring */}
               <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ repeat: Infinity, ease: "linear", duration: 1.5 }}
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 1 }}
                 className="absolute inset-2 rounded-full border-2 border-t-[#1a5fad] border-r-teal-400 border-b-transparent border-l-transparent shadow-[0_0_15px_rgba(26,95,173,0.3)]"
               />
 
