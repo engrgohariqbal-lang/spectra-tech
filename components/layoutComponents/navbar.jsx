@@ -244,20 +244,22 @@ export function Navbar() {
         <div className="container mx-auto px-4">
           <ul className="flex items-stretch">
             {navigation.map((item) => (
-              <li key={item.name} className="relative">
+              <li
+                key={item.name}
+                className="relative h-full"
+                onMouseEnter={() => setActiveDropdown(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
                 {item.children ? (
                   <>
-                    <button
-                      onClick={() =>
-                        setActiveDropdown(
-                          activeDropdown === item.name ? null : item.name,
-                        )
-                      }
+                    <Link
+                      href={item.href || "#"}
                       className={cn(
                         "flex items-center gap-1 px-5 py-4 text-sm font-semibold text-white/90 hover:text-white hover:bg-white/10 transition-colors h-full whitespace-nowrap",
                         activeDropdown === item.name &&
                           "bg-white/10 text-white border-b-2 border-white",
                       )}
+                      onClick={() => setActiveDropdown(null)}
                     >
                       {item.name}
                       <ChevronDown
@@ -266,19 +268,21 @@ export function Navbar() {
                           activeDropdown === item.name && "rotate-180",
                         )}
                       />
-                    </button>
+                    </Link>
                     {activeDropdown === item.name && (
-                      <div className="absolute top-full left-0 z-50 bg-white border border-slate-200 shadow-xl min-w-[220px] rounded-b-md overflow-hidden">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.name}
-                            href={child.href}
-                            className="block px-5 py-3 text-sm text-slate-700 hover:bg-primary hover:text-white transition-colors border-b border-slate-100 last:border-0"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            {child.name}
-                          </Link>
-                        ))}
+                      <div className="absolute top-full left-0 z-50 pt-1 w-64 animate-in fade-in slide-in-from-top-1 duration-200">
+                        <div className="bg-white border border-slate-200 shadow-xl rounded-xl p-1.5 flex flex-col gap-1">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.name}
+                              href={child.href}
+                              className="block px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-all"
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              {child.name}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </>
