@@ -43,8 +43,9 @@ export async function ExploreProducts() {
                 Explore Our Products
               </h2>
               <p className="text-slate-500 max-w-2xl text-sm md:text-base leading-relaxed">
-                Jinyibo is a leading global manufacturer of Optical Emission Spectrometers,
-                Carbon/Sulfur Analyzers, XRF systems, and more. SpectraTech Solutions is Pakistan's premier authorized partner.
+                Jinyibo is a leading global manufacturer of Optical Emission
+                Spectrometers, Carbon/Sulfur Analyzers, XRF systems, and more.
+                SpectraTech Solutions is Pakistan's premier authorized partner.
               </p>
             </div>
             <Link
@@ -72,11 +73,12 @@ export async function ExploreProducts() {
                   fill
                   className="object-contain p-6 group-hover:scale-110 transition-transform duration-500 ease-out"
                 />
-                
+
                 {/* Floating pill badge for model count */}
                 {product.models?.length > 0 && (
-                  <div className="absolute top-4 right-4 bg-primary/10 backdrop-blur-md text-primary font-bold text-[10px] px-3 py-1.5 rounded-full tracking-wider uppercase border border-primary/25">
-                    {product.models.length} {product.models.length === 1 ? "Model" : "Models"}
+                  <div className="absolute top-4 right-4 bg-primary/70 backdrop-blur-md text-white font-bold text-[10px] px-3 py-1.5 rounded-full tracking-wider uppercase border border-primary/25">
+                    {product.models.length}{" "}
+                    {product.models.length === 1 ? "Model" : "Models"}
                   </div>
                 )}
               </div>
@@ -88,7 +90,7 @@ export async function ExploreProducts() {
                   <span className="inline-block text-[10px] font-extrabold tracking-widest text-[#1a5fad] uppercase mb-2">
                     {categoryLabels[product.slug] || "Precision Analyzer"}
                   </span>
-                  
+
                   {/* Product Name */}
                   <h3 className="font-extrabold text-slate-900 text-lg leading-snug mb-2 group-hover:text-primary transition-colors">
                     {product.name}
@@ -102,7 +104,9 @@ export async function ExploreProducts() {
 
                 {/* VIEW SPECIFICATIONS button style */}
                 <div className="flex items-center gap-2 text-sm font-bold text-slate-800 group-hover:text-primary transition-colors mt-auto">
-                  <span className="tracking-wider uppercase text-xs">View Specifications</span>
+                  <span className="tracking-wider uppercase text-xs">
+                    View Specifications
+                  </span>
                   <svg
                     className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300"
                     fill="none"

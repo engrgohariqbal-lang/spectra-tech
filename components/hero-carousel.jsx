@@ -97,7 +97,7 @@ export function HeroCarousel() {
       <div className="absolute inset-0 flex items-center pointer-events-none z-20">
         <div className="container mx-auto px-4 sm:px-6 md:px-12">
           <div className="max-w-2xl space-y-4 md:space-y-5 pointer-events-auto">
-            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] drop-shadow-lg whitespace-pre-line">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] drop-shadow-lg">
               {slides[current]?.title || slides[0].title}
             </h1>
             <p className="text-white text-sm sm:text-base md:text-lg text-slate-250 max-w-xl leading-relaxed">
