@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { getProducts, getProductBySlug } from "@/lib/data-access";
-import { ProductDetailInteractive } from "@/components/product-detail-interactive";
+import { ProductDetailInteractive } from "@/components/productComponents/product-detail-interactive";
 
 export async function generateStaticParams() {
   const products = await getProducts();

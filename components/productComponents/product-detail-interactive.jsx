@@ -25,7 +25,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ContactForm } from "@/components/contact-form";
+import { ContactForm } from "@/components/contactComponents/contact-form";
 
 export function ProductDetailInteractive({ product, allProducts }) {
   const [activeModel, setActiveModel] = useState(

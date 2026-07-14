@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { siteConfig } from "@/lib/data/content";
 import { products } from "@/lib/data/products";
-import { ContactForm } from "@/components/contact-form";
+import { ContactForm } from "@/components/contactComponents/contact-form";
 import {
   FaFacebookF,
   FaInstagram,

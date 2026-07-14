@@ -1,9 +1,9 @@
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { ContactSlidePanel } from "@/components/contact-slide-panel";
-import { RouteLoader } from "@/components/route-loader";
+import { Navbar } from "@/components/layoutComponents/navbar";
+import { Footer } from "@/components/layoutComponents/footer";
+import { ContactSlidePanel } from "@/components/contactComponents/contact-slide-panel";
+import { RouteLoader } from "@/components/layoutComponents/route-loader";
 import { siteConfig } from "@/lib/data/content";
 import "./globals.css";
 
@@ -20,7 +20,7 @@ export const metadata = {
   description: siteConfig.description,
 };
 
-import { JsonLd } from "@/components/json-ld";
+import { JsonLd } from "@/components/layoutComponents/json-ld";
 import { icons } from "lucide-react";
 
 export default function RootLayout({ children }) {

@@ -15,7 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { SpectraTechLogo, SpTech } from "../public/images";
+import { SpectraTechLogo, SpTech } from "../../public/images";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
