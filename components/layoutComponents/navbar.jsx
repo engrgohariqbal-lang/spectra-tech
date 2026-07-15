@@ -3,30 +3,53 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, Mail, Phone, Search, ChevronDown, X } from "lucide-react";
+import {
+  Menu,
+  Mail,
+  Phone,
+  Search,
+  ChevronDown,
+  X,
+  ChevronRight,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import { siteConfig } from "@/lib/data/content";
 import { navigation } from "@/lib/data/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Logo } from "@/public/images";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { SpectraTechLogo, SpTech } from "../../public/images";
+import { SpectraTechLogo } from "../../public/images";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeDropdown, setActiveDropdown] = React.useState(null);
+  const [activeSubDropdown, setActiveSubDropdown] = React.useState(null);
+  const [openMobileSubmenus, setOpenMobileSubmenus] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState("");
   const dropdownRef = React.useRef(null);
+
+  const toggleMobileSubmenu = (name) => {
+    setOpenMobileSubmenus((prev) =>
+      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
+    );
+  };
+
+  React.useEffect(() => {
+    if (!isOpen) {
+      setOpenMobileSubmenus([]);
+    }
+  }, [isOpen]);
 
   React.useEffect(() => {
     function handleClickOutside(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setActiveDropdown(null);
+        setActiveSubDropdown(null);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -149,14 +172,63 @@ export function Navbar() {
                       <AccordionContent>
                         <div className="flex flex-col gap-1 pl-4 pb-3 pt-1">
                           {item.children.map((child) => (
-                            <Link
-                              key={child.name}
-                              href={child.href}
-                              className="text-sm font-semibold text-slate-600 hover:text-primary py-2.5 border-l-2 border-transparent hover:border-primary pl-3 transition-all"
-                              onClick={() => setIsOpen(false)}
-                            >
-                              {child.name}
-                            </Link>
+                            <div key={child.name} className="flex flex-col">
+                              {child.children ? (
+                                <>
+                                  <button
+                                    onClick={() => toggleMobileSubmenu(child.name)}
+                                    className="flex items-center justify-between w-full text-sm font-semibold text-slate-600 hover:text-primary py-2.5 border-l-2 border-transparent hover:border-primary pl-3 pr-2 transition-all"
+                                  >
+                                    <span className="text-left">{child.name}</span>
+                                    <ChevronDown
+                                      className={cn(
+                                        "w-4 h-4 transition-transform duration-200",
+                                        openMobileSubmenus.includes(child.name) && "rotate-180"
+                                      )}
+                                    />
+                                  </button>
+                                  <AnimatePresence>
+                                    {openMobileSubmenus.includes(child.name) && (
+                                      <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="overflow-hidden"
+                                      >
+                                        <div className="flex flex-col gap-1 pl-6 py-1">
+                                          {child.children.map((subChild) => (
+                                            <Link
+                                              key={subChild.name}
+                                              href={subChild.href}
+                                              className="text-xs font-medium text-slate-500 hover:text-primary py-2 border-l-2 border-transparent hover:border-primary pl-3 transition-all"
+                                              onClick={() => setIsOpen(false)}
+                                            >
+                                              {subChild.name}
+                                            </Link>
+                                          ))}
+                                          <Link
+                                            href={child.href}
+                                            className="text-xs font-bold text-primary py-2 border-l-2 border-transparent hover:border-primary pl-3 transition-all"
+                                            onClick={() => setIsOpen(false)}
+                                          >
+                                            View All {child.name}
+                                          </Link>
+                                        </div>
+                                      </motion.div>
+                                    )}
+                                  </AnimatePresence>
+                                </>
+                              ) : (
+                                <Link
+                                  href={child.href}
+                                  className="text-sm font-semibold text-slate-600 hover:text-primary py-2.5 border-l-2 border-transparent hover:border-primary pl-3 transition-all"
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {child.name}
+                                </Link>
+                              )}
+                            </div>
                           ))}
                         </div>
                       </AccordionContent>
@@ -269,22 +341,89 @@ export function Navbar() {
                         )}
                       />
                     </Link>
-                    {activeDropdown === item.name && (
-                      <div className="absolute top-full left-0 z-50 pt-1 w-64 animate-in fade-in slide-in-from-top-1 duration-200">
-                        <div className="bg-white border border-slate-200 shadow-xl rounded-xl p-1.5 flex flex-col gap-1">
-                          {item.children.map((child) => (
-                            <Link
-                              key={child.name}
-                              href={child.href}
-                              className="block px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-all"
-                              onClick={() => setActiveDropdown(null)}
-                            >
-                              {child.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                    <AnimatePresence>
+                      {activeDropdown === item.name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                          exit={{ opacity: 0, y: 5, filter: "blur(4px)" }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
+                          className="absolute top-full left-0 z-50 pt-1 w-72"
+                        >
+                          <div className="bg-white border border-slate-200 shadow-xl rounded-xl p-1.5 flex flex-col gap-1">
+                            {item.children.map((child) => (
+                              <div
+                                key={child.name}
+                                className="relative"
+                                onMouseEnter={() =>
+                                  setActiveSubDropdown(child.name)
+                                }
+                                onMouseLeave={() => setActiveSubDropdown(null)}
+                              >
+                                <Link
+                                  href={child.href}
+                                  className={cn(
+                                    "flex items-center justify-between px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-all",
+                                    activeSubDropdown === child.name &&
+                                      "text-primary bg-slate-100",
+                                  )}
+                                  onClick={() => setActiveDropdown(null)}
+                                >
+                                  <span>{child.name}</span>
+                                  {child.children && (
+                                    <ChevronRight className="w-4 h-4" />
+                                  )}
+                                </Link>
+
+                                <AnimatePresence>
+                                  {child.children &&
+                                    activeSubDropdown === child.name && (
+                                      <motion.div
+                                        initial={{
+                                          opacity: 0,
+                                          x: -10,
+                                          filter: "blur(4px)",
+                                        }}
+                                        animate={{
+                                          opacity: 1,
+                                          x: 0,
+                                          filter: "blur(0px)",
+                                        }}
+                                        exit={{
+                                          opacity: 0,
+                                          x: -5,
+                                          filter: "blur(4px)",
+                                        }}
+                                        transition={{
+                                          duration: 0.2,
+                                          ease: "easeOut",
+                                        }}
+                                        className="absolute top-0 left-full pl-1 w-80"
+                                      >
+                                        <div className="bg-white border border-slate-200 shadow-xl rounded-xl p-1.5 flex flex-col gap-1">
+                                          {child.children.map((subChild) => (
+                                            <Link
+                                              key={subChild.name}
+                                              href={subChild.href}
+                                              className="block px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-all"
+                                              onClick={() => {
+                                                setActiveDropdown(null);
+                                                setActiveSubDropdown(null);
+                                              }}
+                                            >
+                                              {subChild.name}
+                                            </Link>
+                                          ))}
+                                        </div>
+                                      </motion.div>
+                                    )}
+                                </AnimatePresence>
+                              </div>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </>
                 ) : (
                   <Link

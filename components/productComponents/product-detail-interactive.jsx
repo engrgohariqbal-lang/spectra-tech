@@ -194,12 +194,12 @@ export function ProductDetailInteractive({ product, allProducts }) {
                 </div>
                 <div>
                   <p className="text-xs text-slate-400">WhatsApp / Tel</p>
-                  <p className="font-semibold text-white">+86-18352836805</p>
+                  <p className="font-semibold text-white">+92-323-4385933</p>
                 </div>
               </a>
 
               <a
-                href="mailto:sales@jinyibo.com"
+                href="mailto:info.spectratechsolution@gmail.com"
                 className="flex items-center gap-3 p-3 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition-colors border border-white/10"
               >
                 <div className="w-8 h-8 rounded-full bg-primary-foreground/10 flex items-center justify-center shrink-0">
@@ -208,7 +208,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
                 <div>
                   <p className="text-xs text-slate-400">Email Address</p>
                   <p className="font-semibold text-white break-all">
-                    sales@jinyibo.com
+                    info.spectratechsolution@gmail.com
                   </p>
                 </div>
               </a>
