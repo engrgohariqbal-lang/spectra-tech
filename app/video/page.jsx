@@ -1,7 +1,7 @@
 import VideoClient from "./VideoClient";
 
 export const metadata = {
-  title: "Videos | SpectraTech",
+  title: "Videos",
   description: "Watch videos of our products, factory, and service center.",
 };
 
@@ -10,23 +10,21 @@ const videoCategories = [
     title: "Factory & Operations",
     videos: [
       { id: 1, title: "Inside Our Manufacturing Facility" },
-      { id: 2, title: "Quality Control Processes" }
-    ]
+      { id: 2, title: "Quality Control Processes" },
+    ],
   },
   {
     title: "Product Demonstrations",
     videos: [
       { id: 3, title: "OES Spectrometer in Action" },
       { id: 4, title: "Handheld XRF Quick Guide" },
-      { id: 5, title: "Carbon Sulfur Analyzer Setup" }
-    ]
+      { id: 5, title: "Carbon Sulfur Analyzer Setup" },
+    ],
   },
   {
     title: "Service Center",
-    videos: [
-      { id: 6, title: "Routine Maintenance Tutorial" }
-    ]
-  }
+    videos: [{ id: 6, title: "Routine Maintenance Tutorial" }],
+  },
 ];
 
 export default function VideoPage() {

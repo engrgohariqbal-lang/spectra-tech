@@ -2,7 +2,7 @@ import ContactClient from "./ContactClient";
 import { siteConfig } from "@/lib/data/content";
 
 export const metadata = {
-  title: "Contact Us | SpectraTech",
+  title: "Contact Us",
   description:
     "Get in touch with SpectraTech Solutions for inquiries, sales, and service.",
 };
