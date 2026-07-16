@@ -20,7 +20,7 @@ export default function VideoClient({ videoCategories }) {
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-slate-800/80 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 to-slate-800/60 z-10" />
           <Image
             src="https://picsum.photos/seed/spectratech-video-hero/1920/1080"
             alt="Video Library"
