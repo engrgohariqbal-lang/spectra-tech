@@ -19,6 +19,9 @@ const videoCategories = [
       { id: 3, title: "OES Spectrometer in Action" },
       { id: 4, title: "Handheld XRF Quick Guide" },
       { id: 5, title: "Carbon Sulfur Analyzer Setup" },
+      { id: 7, title: "ICP Demonstration" },
+      { id: 8, title: "Mobile Metal Analyser Tutorial" },
+      { id: 9, title: "EDXRF Overview" },
     ],
   },
   {

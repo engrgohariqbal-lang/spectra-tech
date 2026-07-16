@@ -21,18 +21,33 @@ const services = [
     title: "Installation & Training",
     description:
       "Professional setup of your instruments at your facility, followed by comprehensive operator training to ensure correct and safe usage from day one.",
+    images: [
+      "https://picsum.photos/seed/spectratech-svc-inst1/600/400",
+      "https://picsum.photos/seed/spectratech-svc-inst2/600/400",
+      "https://picsum.photos/seed/spectratech-svc-inst3/600/400",
+    ],
   },
   {
     icon: Settings,
     title: "Parts & Maintenance",
     description:
       "Supply of original spare parts and routine maintenance services to minimize downtime and extend the lifespan of your analytical equipment.",
+    images: [
+      "https://picsum.photos/seed/spectratech-svc-parts1/600/400",
+      "https://picsum.photos/seed/spectratech-svc-parts2/600/400",
+      "https://picsum.photos/seed/spectratech-svc-parts3/600/400",
+    ],
   },
   {
     icon: HelpCircle,
     title: "Technical Support",
     description:
       "Dedicated remote and on-site troubleshooting assistance led by experienced engineers.",
+    images: [
+      "https://picsum.photos/seed/spectratech-svc-tech1/600/400",
+      "https://picsum.photos/seed/spectratech-svc-tech2/600/400",
+      "https://picsum.photos/seed/spectratech-svc-tech3/600/400",
+    ],
   },
 ];
 
@@ -121,36 +136,71 @@ export default function ServiceClient() {
       {/* Services Grid */}
       <section className="py-20 relative z-30 -mt-10 md:-mt-20">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
-          >
+          <div className="max-w-7xl mx-auto space-y-12 md:space-y-16">
             {services.map((service, idx) => {
               const Icon = service.icon;
+              const isEven = idx % 2 === 0;
               return (
                 <motion.div
                   key={idx}
-                  variants={fadeIn}
-                  className="bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 text-center hover:-translate-y-2 transition-transform duration-500 group relative overflow-hidden"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-100px" }}
+                  variants={stagger}
+                  className={`flex flex-col ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"} gap-10 lg:gap-16 items-center bg-white p-8 md:p-12 lg:p-16 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 group hover:shadow-2xl hover:border-primary/20 transition-all duration-500`}
                 >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+                  {/* Text Content */}
+                  <motion.div
+                    variants={fadeIn}
+                    className="flex-1 space-y-6 lg:max-w-xl"
+                  >
+                    <div className="w-20 h-20 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-8 shadow-sm group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                      <Icon className="w-10 h-10" />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+                      {service.title}
+                    </h2>
+                    <p className="text-lg md:text-xl text-slate-600 leading-relaxed font-medium">
+                      {service.description}
+                    </p>
+                  </motion.div>
 
-                  <div className="w-20 h-20 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500 shadow-sm rotate-3 group-hover:rotate-0">
-                    <Icon className="w-10 h-10" />
-                  </div>
-                  <h2 className="text-2xl font-bold text-slate-900 mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-slate-600 leading-relaxed">
-                    {service.description}
-                  </p>
+                  {/* Images Gallery */}
+                  <motion.div variants={fadeIn} className="flex-1 w-full relative">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent rounded-3xl -m-4 -z-10 blur-xl"></div>
+                    <div className="grid grid-cols-2 gap-3 h-[300px] md:h-[400px]">
+                      <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md">
+                        <Image
+                          src={service.images[0]}
+                          alt={`${service.title} working image 1`}
+                          fill
+                          className="object-cover hover:scale-110 transition-transform duration-700"
+                        />
+                      </div>
+                      <div className="grid grid-rows-2 gap-3 h-full">
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md">
+                          <Image
+                            src={service.images[1]}
+                            alt={`${service.title} working image 2`}
+                            fill
+                            className="object-cover hover:scale-110 transition-transform duration-700"
+                          />
+                        </div>
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-md">
+                          <Image
+                            src={service.images[2]}
+                            alt={`${service.title} working image 3`}
+                            fill
+                            className="object-cover hover:scale-110 transition-transform duration-700"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
