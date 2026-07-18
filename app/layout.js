@@ -21,7 +21,7 @@ export const metadata = {
 };
 
 import { JsonLd } from "@/components/layoutComponents/json-ld";
-import { icons } from "lucide-react";
+import ChatbaseWidget from "../components/layoutComponents/chatbaseWidget";
 
 export default function RootLayout({ children }) {
   return (
@@ -35,6 +35,7 @@ export default function RootLayout({ children }) {
         <RouteLoader />
         <main className="flex-1 pt-[72px] md:pt-[120px]">{children}</main>
         <Footer />
+        <ChatbaseWidget />
         <Toaster />
       </body>
     </html>
