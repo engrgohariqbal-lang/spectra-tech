@@ -172,7 +172,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
           </div>
 
           {/* Contact Support Widget */}
-          <div className="bg-gradient-to-br from-slate-900 to-primary text-white rounded-xl shadow-md p-6">
+          {/* <div className="bg-gradient-to-br from-slate-900 to-primary text-white rounded-xl shadow-md p-6">
             <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
               <Phone className="w-5 h-5 text-accent" />
               Direct Support
@@ -184,7 +184,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
 
             <div className="space-y-4">
               <a
-                href="https://wa.me/8618352836805"
+                href="https://wa.me/923234385933"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 p-3 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition-colors border border-white/10"
@@ -213,7 +213,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
                 </div>
               </a>
             </div>
-          </div>
+          </div> */}
         </aside>
 
         {/* Main Content Column */}
