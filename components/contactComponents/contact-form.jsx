@@ -62,10 +62,17 @@ export function ContactForm({ defaultMessage = "" }) {
         throw new Error("Failed to send message");
       }
 
-      toast.success("Message sent successfully! We will get back to you soon.");
+      toast.success(
+        "Message sent successfully! We will get back to you soon.",
+        {
+          position: "top-right",
+        },
+      );
       form.reset();
     } catch (error) {
-      toast.error("Failed to send message. Please try again later.");
+      toast.error("Failed to send message. Please try again later.", {
+        position: "top-right",
+      });
     } finally {
       setIsSubmitting(false);
     }
