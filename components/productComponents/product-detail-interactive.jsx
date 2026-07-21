@@ -242,10 +242,10 @@ export function ProductDetailInteractive({ product, allProducts }) {
                 ))}
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 flex flex-wrap-reverse gap-4">
                 <Button
                   onClick={() => handleEnquireNow(null)}
-                  className="bg-primary hover:bg-secondary text-white font-semibold px-6 py-5 rounded-lg shadow-sm"
+                  className="flex-1 sm:flex-none bg-primary hover:bg-secondary text-white font-semibold px-6 py-5 rounded-lg shadow-sm"
                 >
                   Inquire Now
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -254,7 +254,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
                   <Button
                     variant="outline"
                     onClick={() => handleViewSpecs(product.models[0])}
-                    className="border-slate-200 hover:bg-slate-50 text-slate-700 px-6 py-5 rounded-lg"
+                    className="flex-1 sm:flex-none border-slate-200 hover:bg-slate-50 text-slate-700 px-6 py-5 rounded-lg"
                   >
                     View Technical Specifications
                   </Button>
