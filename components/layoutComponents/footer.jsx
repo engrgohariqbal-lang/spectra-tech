@@ -16,13 +16,25 @@ import {
 const contactTabs = ["SALES", "TECHNICAL", "AFTER-SALES"];
 
 const hotTags = [
-  { label: "Optical Emission Spectrometer", href: "/products/oes-spectrometer" },
+  {
+    label: "Optical Emission Spectrometer",
+    href: "/products/oes-spectrometer",
+  },
   { label: "Handheld XRF Analyzer", href: "/products/handheld-xrf-analyzer" },
   { label: "Metal Analyzer", href: "/products/mobile-metal-analyzer" },
-  { label: "High Frequency Carbon Sulfur Analyzer", href: "/products/carbon-sulfur-onh-analyzer" },
-  { label: "X Ray Fluorescence Spectrometer", href: "/products/desktop-edxrf-spectrometer" },
+  {
+    label: "High Frequency Carbon Sulfur Analyzer",
+    href: "/products/carbon-sulfur-onh-analyzer",
+  },
+  {
+    label: "X Ray Fluorescence Spectrometer",
+    href: "/products/desktop-edxrf-spectrometer",
+  },
   { label: "Alloy And Metal Analyzer", href: "/products/oes-spectrometer" },
-  { label: "Oxygen Nitrogen Hydrogen Analyzer", href: "/products/carbon-sulfur-onh-analyzer" },
+  {
+    label: "Oxygen Nitrogen Hydrogen Analyzer",
+    href: "/products/carbon-sulfur-onh-analyzer",
+  },
   { label: "ICP Analysis For Metals", href: "/products/icp-oes" },
   { label: "Mobile Metal Analyzer", href: "/products/mobile-metal-analyzer" },
   { label: "CRMs & Consumables", href: "/products/crms-consumables" },
@@ -59,11 +71,13 @@ export function Footer() {
   return (
     <footer
       className="text-slate-300"
-      style={{ background: "linear-gradient(135deg, #0d3b80 0%, #1a5fad 60%, #1565c0 100%)" }}
+      style={{
+        background:
+          "linear-gradient(135deg, #0d3b80 0%, #1a5fad 60%, #1565c0 100%)",
+      }}
     >
       <div className="container mx-auto px-4 pt-14 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-
           {/* ── Column 1: Contact Us ── */}
           <div>
             <h3 className="text-white text-sm font-extrabold tracking-[0.2em] uppercase mb-5">
@@ -123,11 +137,31 @@ export function Footer() {
               </p>
               <div className="flex gap-3">
                 {[
-                  { icon: FaFacebookF, href: siteConfig.social.facebook, label: "Facebook" },
-                  { icon: FaInstagram, href: siteConfig.social.instagram, label: "Instagram" },
-                  { icon: FaTiktok, href: siteConfig.social.tiktok, label: "TikTok" },
-                  { icon: FaYoutube, href: siteConfig.social.youtube, label: "YouTube" },
-                  { icon: FaLinkedin, href: siteConfig.social.linkedin, label: "LinkedIn" },
+                  {
+                    icon: FaFacebookF,
+                    href: siteConfig.social.facebook,
+                    label: "Facebook",
+                  },
+                  {
+                    icon: FaInstagram,
+                    href: siteConfig.social.instagram,
+                    label: "Instagram",
+                  },
+                  {
+                    icon: FaTiktok,
+                    href: siteConfig.social.tiktok,
+                    label: "TikTok",
+                  },
+                  {
+                    icon: FaYoutube,
+                    href: siteConfig.social.youtube,
+                    label: "YouTube",
+                  },
+                  {
+                    icon: FaLinkedin,
+                    href: siteConfig.social.linkedin,
+                    label: "LinkedIn",
+                  },
                 ].map(({ icon: Icon, href, label }) => (
                   <a
                     key={label}
@@ -179,7 +213,10 @@ export function Footer() {
       </div>
 
       {/* ── Bottom Bar ── */}
-      <div className="border-t border-white/10 py-5" style={{ background: "rgba(0,0,0,0.25)" }}>
+      <div
+        className="border-t border-white/10 py-5"
+        style={{ background: "rgba(0,0,0,0.25)" }}
+      >
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           {/* Bottom Nav links */}
           <nav className="flex flex-wrap justify-center gap-x-1 text-xs text-white/60 font-semibold tracking-wider uppercase">
@@ -192,17 +229,23 @@ export function Footer() {
               { label: "CONTACT US", href: "/contact" },
             ].map((item, idx, arr) => (
               <React.Fragment key={item.label}>
-                <Link href={item.href} className="hover:text-white transition-colors px-2">
+                <Link
+                  href={item.href}
+                  className="hover:text-white transition-colors px-2"
+                >
                   {item.label}
                 </Link>
-                {idx < arr.length - 1 && <span className="text-white/20">|</span>}
+                {idx < arr.length - 1 && (
+                  <span className="text-white/20">|</span>
+                )}
               </React.Fragment>
             ))}
           </nav>
 
           {/* Copyright */}
           <p className="text-xs text-white/40 text-center">
-            © Copyright © {new Date().getFullYear()} {siteConfig.name} All Rights Reserved.
+            © Copyright © {new Date().getFullYear()} {siteConfig.name} All
+            Rights Reserved.
           </p>
         </div>
       </div>
