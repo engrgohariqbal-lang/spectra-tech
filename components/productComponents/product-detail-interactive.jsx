@@ -3,19 +3,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle,
-  MessageSquare,
-  Phone,
-  Mail,
   ArrowRight,
   Search,
   Shield,
-  Zap,
   Layers,
   Activity,
-  FileText,
   Building,
   Wrench,
   Cpu,
@@ -509,26 +503,76 @@ export function ProductDetailInteractive({ product, allProducts }) {
           {/* Interactive Request Quote Form Section */}
           <section
             ref={inquirySectionRef}
-            className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden scroll-mt-24"
+            className="relative rounded-4xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden scroll-mt-24 bg-white flex flex-col md:flex-row border border-slate-100/50 md:my-16 my-10"
           >
-            <div className="bg-primary text-white p-8">
-              <div className="max-w-2xl">
-                <Badge className="bg-white/20 text-white border-none hover:bg-white/30 mb-3 font-semibold px-2 py-0.5 text-xs">
+            {/* Left/Top Content - Informational Side */}
+            <div className="md:w-5/12 bg-primary p-10 md:p-14 text-white relative overflow-hidden flex flex-col justify-center shrink-0">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 -mt-20 -mr-20 w-72 h-72 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-72 h-72 bg-orange-400/20 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10">
+                <Badge className="bg-white/20 text-white border-none hover:bg-white/30 mb-6 font-bold px-4 py-1.5 md:text-sm text-xs tracking-wider uppercase backdrop-blur-md shadow-sm">
                   RFQ - Request for Quote
                 </Badge>
-                <h3 className="text-2xl font-bold">
+
+                <h3 className="text-2xl md:text-3xl font-extrabold mb-4 leading-tight tracking-tight">
                   Request a Formal Quote & Configuration
                 </h3>
-                <p className="text-slate-200 text-sm mt-2 leading-relaxed">
+
+                <p className="text-slate-100 text-sm md:text-base mb-10 leading-relaxed font-medium">
                   Our application engineers are standing by to design a
                   calibration package suitable for your materials. Fill out the
                   form and receive pricing details within 24 hours.
                 </p>
+
+                <div className="space-y-6">
+                  <div className="flex items-center gap-5">
+                    <div className="bg-white/20 p-3.5 rounded-2xl backdrop-blur-md shadow-inner border border-white/5 shrink-0">
+                      <Clock className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-lg">
+                        24h Response
+                      </h4>
+                      <p className="text-sm text-slate-200 mt-0.5">
+                        Get your quote within one business day
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-5">
+                    <div className="bg-white/20 p-3.5 rounded-2xl backdrop-blur-md shadow-inner border border-white/5 shrink-0">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-lg">
+                        Expert Engineers
+                      </h4>
+                      <p className="text-sm text-slate-200 mt-0.5">
+                        Custom packages designed by pros
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="p-8 max-w-3xl">
-              <ContactForm defaultMessage={inquiryMessage} />
+            {/* Right/Bottom Content - Form Side */}
+            <div className="md:w-7/12 p-8 md:p-14 bg-slate-50/50 relative">
+              {/* Subtle background pattern/gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-slate-100/50 pointer-events-none" />
+
+              <div className="relative z-10 w-full max-w-xl mx-auto">
+                <div className="md:mb-6 mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900">
+                    Your Details
+                  </h3>
+                  <p className="text-slate-500 text-sm mt-1">
+                    Please fill in the form below to receive your custom quote.
+                  </p>
+                </div>
+                <ContactForm defaultMessage={inquiryMessage} />
+              </div>
             </div>
           </section>
         </main>
