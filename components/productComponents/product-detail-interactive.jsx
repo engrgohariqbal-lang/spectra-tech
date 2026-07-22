@@ -16,10 +16,14 @@ import {
   Clock,
   Compass,
   FileSpreadsheet,
+  FileText,
+  Download,
+  Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactForm } from "@/components/contactComponents/contact-form";
+import { ProductGallery } from "./product-gallery";
 
 export function ProductDetailInteractive({ product, allProducts }) {
   const [activeModel, setActiveModel] = useState(
@@ -213,46 +217,54 @@ export function ProductDetailInteractive({ product, allProducts }) {
         {/* Main Content Column */}
         <main className="lg:col-span-3 space-y-12">
           {/* Product Category Hero/Overview */}
-          <section className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 lg:p-10">
-            <div className="max-w-3xl">
-              <Badge className="bg-primary/10 text-primary border-none hover:bg-primary/20 mb-4 px-3 py-1 text-xs font-semibold">
-                Analytical Solution
-              </Badge>
-              <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-                {product.name}
-              </h1>
-              <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                {product.longDescription || product.description}
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 pt-6 mt-6">
-                {product.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                    <span className="text-sm text-slate-700 leading-snug">
-                      {feature}
-                    </span>
-                  </div>
-                ))}
+          <section className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 lg:p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              {/* Left Column: Image Gallery */}
+              <div className="w-full">
+                <ProductGallery images={product.gallery || [product.image]} productName={product.name} />
               </div>
 
-              <div className="mt-8 flex flex-wrap-reverse gap-4">
-                <Button
-                  onClick={() => handleEnquireNow(null)}
-                  className="flex-1 sm:flex-none bg-primary hover:bg-secondary text-white font-semibold px-6 py-5 rounded-lg shadow-sm"
-                >
-                  Inquire Now
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-                {product.models.length > 0 && (
+              {/* Right Column: Overview */}
+              <div className="flex flex-col justify-center">
+                <Badge className="bg-primary/10 text-primary border-none hover:bg-primary/20 mb-4 px-3 py-1 text-xs font-semibold w-fit">
+                  Analytical Solution
+                </Badge>
+                <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                  {product.name}
+                </h1>
+                <p className="text-base text-slate-600 leading-relaxed mb-6">
+                  {product.longDescription || product.description}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-100 pt-6 mt-2">
+                  {product.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                      <span className="text-sm text-slate-700 leading-snug">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-4">
                   <Button
-                    variant="outline"
-                    onClick={() => handleViewSpecs(product.models[0])}
-                    className="flex-1 sm:flex-none border-slate-200 hover:bg-slate-50 text-slate-700 px-6 py-5 rounded-lg"
+                    onClick={() => handleEnquireNow(null)}
+                    className="flex-1 sm:flex-none bg-primary hover:bg-secondary text-white font-semibold px-6 py-5 rounded-lg shadow-sm"
                   >
-                    View Technical Specifications
+                    Inquire Now
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                )}
+                  {product.models.length > 0 && (
+                    <Button
+                      variant="outline"
+                      onClick={() => handleViewSpecs(product.models[0])}
+                      className="flex-1 sm:flex-none border-slate-200 hover:bg-slate-50 text-slate-700 px-6 py-5 rounded-lg"
+                    >
+                      View Technical Specifications
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           </section>
@@ -499,6 +511,68 @@ export function ProductDetailInteractive({ product, allProducts }) {
               ))}
             </div>
           </section>
+
+          {/* Benefits & Advantages Section */}
+          {product.benefits && product.benefits.length > 0 && (
+            <section className="space-y-6">
+              <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                <Award className="w-6 h-6 text-primary" />
+                Benefits & Advantages
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {product.benefits.map((benefit, idx) => (
+                  <div key={idx} className="bg-gradient-to-br from-white to-slate-50 rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-shadow">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{benefit.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Additional Product Information Section */}
+          {product.additionalInfo && (
+            <section className="bg-slate-900 rounded-2xl shadow-sm border border-slate-800 p-8 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+              <h2 className="text-2xl font-bold flex items-center gap-2 mb-6 relative z-10">
+                <FileText className="w-6 h-6 text-primary" />
+                Additional Resources
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                <div className="space-y-4">
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Downloads</h4>
+                  <div className="flex flex-col gap-3">
+                    <a href={product.additionalInfo.brochureUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
+                      <span className="text-sm font-medium">Product Brochure</span>
+                      <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
+                    </a>
+                    <a href={product.additionalInfo.manualUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
+                      <span className="text-sm font-medium">User Manual</span>
+                      <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Warranty & Support</h4>
+                  <p className="text-sm text-slate-200 leading-relaxed">
+                    {product.additionalInfo.warranty}
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Certifications</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {product.additionalInfo.certifications.map((cert, idx) => (
+                      <Badge key={idx} variant="outline" className="border-slate-600 text-slate-300 font-medium">
+                        {cert}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* Interactive Request Quote Form Section */}
           <section
