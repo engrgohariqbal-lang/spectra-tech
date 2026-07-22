@@ -360,6 +360,97 @@ export function ProductDetailInteractive({ product, allProducts }) {
             )}
           </section>
 
+          {/* Industry Applications Section */}
+          <section className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+              <Building className="w-6 h-6 text-primary" />
+              Industry Applications
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {product.applications.map((appText, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-xl shadow-xs border border-slate-100 p-5 flex items-start gap-4 hover:border-primary/20 hover:shadow-sm transition-all duration-300"
+                >
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                    {getIndustryIcon(appText)}
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-slate-900 text-sm mb-1">
+                      {appText}
+                    </h4>
+                    <p className="text-xs text-slate-500 leading-snug">
+                      Fully qualified calibrations and specialized adapters
+                      available.
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Benefits & Advantages Section */}
+          {product.benefits && product.benefits.length > 0 && (
+            <section className="space-y-6">
+              <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                <Award className="w-6 h-6 text-primary" />
+                Benefits & Advantages
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {product.benefits.map((benefit, idx) => (
+                  <div key={idx} className="bg-gradient-to-br from-white to-slate-50 rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-shadow">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{benefit.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Additional Product Information Section */}
+          {product.additionalInfo && (
+            <section className="bg-slate-900 rounded-2xl shadow-sm border border-slate-800 p-8 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+              <h2 className="text-2xl font-bold flex items-center gap-2 mb-6 relative z-10">
+                <FileText className="w-6 h-6 text-primary" />
+                Additional Resources
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                <div className="space-y-4">
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Downloads</h4>
+                  <div className="flex flex-col gap-3">
+                    <a href={product.additionalInfo.brochureUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
+                      <span className="text-sm font-medium">Product Brochure</span>
+                      <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
+                    </a>
+                    <a href={product.additionalInfo.manualUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
+                      <span className="text-sm font-medium">User Manual</span>
+                      <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Warranty & Support</h4>
+                  <p className="text-sm text-slate-200 leading-relaxed">
+                    {product.additionalInfo.warranty}
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Certifications</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {product.additionalInfo.certifications.map((cert, idx) => (
+                      <Badge key={idx} variant="outline" className="border-slate-600 text-slate-300 font-medium">
+                        {cert}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
           {/* Interactive Specifications Table Section */}
           {product.models.length > 0 && activeModel && (
             <section
@@ -479,97 +570,6 @@ export function ProductDetailInteractive({ product, allProducts }) {
                     )}
                   </tbody>
                 </table>
-              </div>
-            </section>
-          )}
-
-          {/* Industry Applications Section */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <Building className="w-6 h-6 text-primary" />
-              Industry Applications
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {product.applications.map((appText, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-xs border border-slate-100 p-5 flex items-start gap-4 hover:border-primary/20 hover:shadow-sm transition-all duration-300"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                    {getIndustryIcon(appText)}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-slate-900 text-sm mb-1">
-                      {appText}
-                    </h4>
-                    <p className="text-xs text-slate-500 leading-snug">
-                      Fully qualified calibrations and specialized adapters
-                      available.
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Benefits & Advantages Section */}
-          {product.benefits && product.benefits.length > 0 && (
-            <section className="space-y-6">
-              <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                <Award className="w-6 h-6 text-primary" />
-                Benefits & Advantages
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {product.benefits.map((benefit, idx) => (
-                  <div key={idx} className="bg-gradient-to-br from-white to-slate-50 rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-shadow">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">{benefit.title}</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Additional Product Information Section */}
-          {product.additionalInfo && (
-            <section className="bg-slate-900 rounded-2xl shadow-sm border border-slate-800 p-8 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
-              <h2 className="text-2xl font-bold flex items-center gap-2 mb-6 relative z-10">
-                <FileText className="w-6 h-6 text-primary" />
-                Additional Resources
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                <div className="space-y-4">
-                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Downloads</h4>
-                  <div className="flex flex-col gap-3">
-                    <a href={product.additionalInfo.brochureUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
-                      <span className="text-sm font-medium">Product Brochure</span>
-                      <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
-                    </a>
-                    <a href={product.additionalInfo.manualUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
-                      <span className="text-sm font-medium">User Manual</span>
-                      <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Warranty & Support</h4>
-                  <p className="text-sm text-slate-200 leading-relaxed">
-                    {product.additionalInfo.warranty}
-                  </p>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Certifications</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {product.additionalInfo.certifications.map((cert, idx) => (
-                      <Badge key={idx} variant="outline" className="border-slate-600 text-slate-300 font-medium">
-                        {cert}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
               </div>
             </section>
           )}
