@@ -91,7 +91,7 @@ export default function CleanlinessClient() {
         "ISO 16232 compliance certification",
       ],
       image:
-        "https://picsum.photos/seed/spectratech-cleanliness-analyzer/600/400",
+        "https://www.jinyibo.com/uploadfile/202504/01/e4ca594931a45e02e57c8033cabb9441_small.jpg",
     },
     {
       name: "DJ-CC767 Cleanliness Cabinets",
@@ -102,7 +102,7 @@ export default function CleanlinessClient() {
         "HEPA air filtration system",
       ],
       image:
-        "https://picsum.photos/seed/spectratech-cleanliness-cabinet/600/400",
+        "https://www.jinyibo.com/uploadfile/202504/01/e94b9a25da16bc7dee0fa316f2fa67b5_small.jpg",
     },
     {
       name: "DJ-CTS Cleanliness Testing Solution",
@@ -113,7 +113,7 @@ export default function CleanlinessClient() {
         "Saves up to 40% lab footprint",
       ],
       image:
-        "https://picsum.photos/seed/spectratech-cleanliness-solution/600/400",
+        "https://www.jinyibo.com/uploadfile/202210/25/d54852d9ce3c0f2453bf939495934b6f_small.jpg",
     },
   ];
 
@@ -124,7 +124,7 @@ export default function CleanlinessClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/50 to-slate-900/60 z-10" />
           <Image
-            src="https://picsum.photos/seed/spectratech-clean-sol/1920/1080"
+            src="https://www.jinyibo.com/uploadfile/bannerimg/16454208990999.jpg"
             alt="ISO or VDA 19 Technical Cleanliness Solutions"
             fill
             className="object-cover"
@@ -192,7 +192,7 @@ export default function CleanlinessClient() {
               <div className="absolute inset-0 bg-red-500/5 rounded-3xl transform -rotate-3 scale-105"></div>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <Image
-                  src="https://picsum.photos/seed/spectratech-part-fail/600/450"
+                  src="https://www.jinyibo.com/uploadfile/202509/06/106b4ae6b300117d7f87cf9266b7fe43_small.jpg"
                   alt="Microscopic particle contaminants"
                   fill
                   className="object-cover"
@@ -436,7 +436,7 @@ export default function CleanlinessClient() {
 
       {/* Call to Action */}
       <section className="py-20 bg-slate-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/spectratech-pattern/1000/1000')] bg-cover bg-center opacity-5 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-cover bg-center opacity-5 mix-blend-overlay"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Need a complete technical cleanliness laboratory setup?

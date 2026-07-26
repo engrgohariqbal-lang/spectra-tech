@@ -25,7 +25,7 @@ export default function SolutionsClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 to-slate-800/60 z-10" />
           <Image
-            src="https://picsum.photos/seed/spectratech-solutions-hero/1920/1080"
+            src="https://www.jinyibo.com/uploadfile/bannerimg/16454208990999.jpg"
             alt="Analytical Solutions"
             fill
             className="object-cover"
@@ -180,7 +180,7 @@ export default function SolutionsClient() {
             variants={stagger}
             className="max-w-4xl mx-auto bg-slate-900 rounded-3xl p-10 md:p-16 text-center shadow-2xl relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/spectratech-pattern/1000/1000')] opacity-5 mix-blend-overlay"></div>
+            <div className="absolute inset-0 opacity-5 mix-blend-overlay"></div>
             <motion.h2
               variants={fadeIn}
               className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10"

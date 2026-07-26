@@ -64,7 +64,7 @@ export default function MetalsClient() {
         "Ferrous and non-ferrous matrix calibrations",
         "Low cost of ownership & maintenance",
       ],
-      image: "https://picsum.photos/seed/spectratech-oes-w4/600/400",
+      image: "https://www.jinyibo.com/uploadfile/202211/02/05f18243ff29c9ea5bbe117f0b74c73f_medium.jpg",
       link: "/products/oes-spectrometer",
     },
     {
@@ -77,7 +77,7 @@ export default function MetalsClient() {
         "Standardized parameter auto-correction",
         "Intelligent argon-saving standby mode",
       ],
-      image: "https://picsum.photos/seed/spectratech-oes-w5/600/400",
+      image: "https://www.jinyibo.com/uploadfile/202606/01/84d9e3ca0b06ec09282a03ddd5c91dfb_medium.jpg",
       link: "/products/oes-spectrometer",
     },
     {
@@ -90,7 +90,7 @@ export default function MetalsClient() {
         "Supports up to 12 base calibrations (Fe, Cu, Al, Ni, Ti)",
         "High-energy pre-combustion technology (HEPS)",
       ],
-      image: "https://picsum.photos/seed/spectratech-oes-w6/600/400",
+      image: "https://www.jinyibo.com/uploadfile/202211/18/8dd8541b2feca3cff13f5642bb004046_medium.jpg",
       link: "/products/oes-spectrometer",
     },
   ];
@@ -102,7 +102,7 @@ export default function MetalsClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/30 to-slate-900/30 z-10" />
           <Image
-            src="https://picsum.photos/seed/spectratech-metals-sol/1920/1080"
+            src="https://www.jinyibo.com/uploadfile/bannerimg/16454208990999.jpg"
             alt="Metals - Low Alloy Steels Analysis"
             fill
             className="object-cover"
@@ -222,7 +222,7 @@ export default function MetalsClient() {
               <div className="absolute inset-0 bg-primary/5 rounded-3xl transform rotate-3 scale-105"></div>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <Image
-                  src="https://picsum.photos/seed/spectratech-steel-refinery/600/450"
+                  src="https://www.jinyibo.com/uploadfile/202211/02/00f97129025879f5814c0198fdeea1e7_medium.jpg"
                   alt="Steel manufacturing quality control"
                   fill
                   className="object-cover"
@@ -377,7 +377,7 @@ export default function MetalsClient() {
 
       {/* Call to Action */}
       <section className="py-20 bg-slate-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/spectratech-pattern/1000/1000')] opacity-5 mix-blend-overlay"></div>
+        <div className="absolute inset-0 opacity-5 mix-blend-overlay"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Need assistance setting up your steel QC program?

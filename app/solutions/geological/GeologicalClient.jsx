@@ -83,7 +83,7 @@ export default function GeologicalClient() {
         "Automated collimator & filter changers",
         "NIST-traceable calibration algorithms",
       ],
-      image: "https://picsum.photos/seed/spectratech-desktop-p9800/600/400",
+      image: "https://www.jinyibo.com/uploadfile/202202/17/b3ce6b9361b00fab4927cf58d5bfa688_medium.jpg",
       link: "/products/desktop-edxrf-spectrometer",
     },
     {
@@ -96,7 +96,7 @@ export default function GeologicalClient() {
         "Dual-vacuum/helium gas purge pathways",
         "12-position automatic sample carousel",
       ],
-      image: "https://picsum.photos/seed/spectratech-desktop-ty9800/600/400",
+      image: "https://www.jinyibo.com/uploadfile/202202/17/165597b1ad56441174dbfc76fbbe0c73_medium.jpg",
       link: "/products/desktop-edxrf-spectrometer",
     },
     {
@@ -109,7 +109,7 @@ export default function GeologicalClient() {
         "GPS integrated for geochemical mapping",
         "Inbuilt camera for measurement spot alignment",
       ],
-      image: "https://picsum.photos/seed/spectratech-xrf-jx6/600/400",
+      image: "https://www.jinyibo.com/uploadfile/202511/21/e51bec7279a550e971e855071de851f9_medium.jpg",
       link: "/products/handheld-xrf-analyzer",
     },
   ];
@@ -121,7 +121,7 @@ export default function GeologicalClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 to-slate-900/40 z-10" />
           <Image
-            src="https://picsum.photos/seed/spectratech-geol-sol/1920/1080"
+            src="https://www.jinyibo.com/uploadfile/bannerimg/16454208990999.jpg"
             alt="Geological and Organic Materials Analysis"
             fill
             className="object-cover"
@@ -231,7 +231,7 @@ export default function GeologicalClient() {
               <div className="absolute inset-0 bg-primary/5 rounded-3xl transform rotate-3 scale-105"></div>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <Image
-                  src="https://picsum.photos/seed/spectratech-geol-sample/600/450"
+                  src="https://www.jinyibo.com/uploadfile/202202/17/8287e2573872cf756d5210b14a1376be_medium.jpg"
                   alt="Geological samples and trace minerals"
                   fill
                   className="object-cover"
@@ -401,7 +401,7 @@ export default function GeologicalClient() {
 
       {/* Call to Action */}
       <section className="py-20 bg-slate-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/spectratech-pattern/1000/1000')] opacity-5 mix-blend-overlay"></div>
+        <div className="absolute inset-0 opacity-5 mix-blend-overlay"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Need help analyzing geological or organic ores?
