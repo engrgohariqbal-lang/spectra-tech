@@ -5,6 +5,7 @@ import { ExploreProducts } from "@/components/homeComponents/explore-products";
 import { OurSolutions } from "@/components/homeComponents/our-solutions";
 import { CustomersSay } from "@/components/homeComponents/customers-say";
 import { CustomerShowcase } from "@/components/homeComponents/customer-showcase";
+import SpectraFAQs from "../components/homeComponents/spectraFAQs";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <OurSolutions />
       <CustomersSay />
       <CustomerShowcase />
+      <SpectraFAQs />
     </>
   );
 }
