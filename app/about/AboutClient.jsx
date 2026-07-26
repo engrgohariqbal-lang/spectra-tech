@@ -104,7 +104,7 @@ export default function AboutClient() {
               <div className="absolute -bottom-8 -right-8 bg-white p-6 rounded-2xl shadow-xl hidden md:block">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white font-bold text-2xl">
-                    4+
+                    7+
                   </div>
                   <div>
                     <p className="font-bold text-slate-900 text-lg leading-tight">
