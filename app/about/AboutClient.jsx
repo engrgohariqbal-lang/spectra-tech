@@ -27,7 +27,7 @@ export default function AboutClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 to-slate-800/70 z-10" />
           <Image
-            src="https://picsum.photos/seed/spectratech-hero/1920/1080"
+            src="/images/products/banners/about-hero.webp"
             alt="SpectraTech Background"
             fill
             className="object-cover"
@@ -94,7 +94,7 @@ export default function AboutClient() {
             >
               <div className="relative rounded-3xl overflow-hidden shadow-2xl aspect-square md:aspect-[4/3] w-full border-8 border-white">
                 <Image
-                  src="https://picsum.photos/seed/spectratech-about-exp/800/800"
+                  src="/images/products/misc/about-experience.webp"
                   alt="Engineering Experience"
                   fill
                   className="object-cover"
@@ -250,7 +250,7 @@ export default function AboutClient() {
               className="relative w-full aspect-video bg-slate-800 rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center group cursor-pointer border border-white/10"
             >
               <Image
-                src="https://picsum.photos/seed/spectratech-video/1200/600"
+                src="/images/products/misc/about-video-thumb.webp"
                 alt="Company Video"
                 fill
                 className="object-cover opacity-50 group-hover:opacity-60 transition-opacity duration-500"

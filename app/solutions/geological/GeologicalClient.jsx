@@ -83,7 +83,7 @@ export default function GeologicalClient() {
         "Automated collimator & filter changers",
         "NIST-traceable calibration algorithms",
       ],
-      image: "https://www.jinyibo.com/uploadfile/202202/17/b3ce6b9361b00fab4927cf58d5bfa688_medium.jpg",
+      image: "/images/products/xrf/p9800s-xrf-main.webp",
       link: "/products/desktop-edxrf-spectrometer",
     },
     {
@@ -96,7 +96,7 @@ export default function GeologicalClient() {
         "Dual-vacuum/helium gas purge pathways",
         "12-position automatic sample carousel",
       ],
-      image: "https://www.jinyibo.com/uploadfile/202202/17/165597b1ad56441174dbfc76fbbe0c73_medium.jpg",
+      image: "/images/products/xrf/p9800-xrf-main.webp",
       link: "/products/desktop-edxrf-spectrometer",
     },
     {
@@ -109,7 +109,7 @@ export default function GeologicalClient() {
         "GPS integrated for geochemical mapping",
         "Inbuilt camera for measurement spot alignment",
       ],
-      image: "https://www.jinyibo.com/uploadfile/202511/21/e51bec7279a550e971e855071de851f9_medium.jpg",
+      image: "/images/products/handheld-xrf/jx6-xrf-main.webp",
       link: "/products/handheld-xrf-analyzer",
     },
   ];
@@ -121,7 +121,7 @@ export default function GeologicalClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 to-slate-900/40 z-10" />
           <Image
-            src="https://www.jinyibo.com/uploadfile/bannerimg/16454208990999.jpg"
+            src="/images/products/banners/hero-banner.webp"
             alt="Geological and Organic Materials Analysis"
             fill
             className="object-cover"
@@ -231,7 +231,7 @@ export default function GeologicalClient() {
               <div className="absolute inset-0 bg-primary/5 rounded-3xl transform rotate-3 scale-105"></div>
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <Image
-                  src="https://www.jinyibo.com/uploadfile/202202/17/8287e2573872cf756d5210b14a1376be_medium.jpg"
+                  src="/images/products/libs/expert1-libs-main.webp"
                   alt="Geological samples and trace minerals"
                   fill
                   className="object-cover"

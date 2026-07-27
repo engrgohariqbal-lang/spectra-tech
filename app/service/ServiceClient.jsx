@@ -96,7 +96,7 @@ const servicesContent = {
     title: "Installation & Training",
     icon: Wrench,
     image:
-      "https://www.jinyibo.com/js/tinymce/demo/images/202202/10/a145d090ba1fc06ec4a4d0a4a1c0187f.jpg",
+      "/images/products/service/installation-training.webp",
     content: [
       "Your scientific instrument investment pays even greater dividends when it is put to skillful and safe use. With our operator training programs and safety e-learning, you elevate your operators to higher levels of proficiency and realize the full potential of the spend. Our emphasis on comprehensive service training provides our dealers with confidence and our customers with peace of mind.",
       "The installation including installation video and installation guide, normally can be installed without our service engineer in some special circumstances.",
@@ -109,7 +109,7 @@ const servicesContent = {
     title: "Parts & Maintenance",
     icon: Settings,
     image:
-      "https://www.jinyibo.com/uploadfile/202504/01/e4ca594931a45e02e57c8033cabb9441_small.jpg",
+      "/images/products/cleanliness/cleanliness-analyzer.webp",
     content: [
       "Supply of original spare parts and routine maintenance services to minimize downtime and extend the lifespan of your analytical equipment.",
       "We keep a comprehensive inventory of essential spare parts locally in Pakistan to ensure rapid replacement and minimal disruption to your operations.",
@@ -121,7 +121,7 @@ const servicesContent = {
     title: "Technical Support",
     icon: HelpCircle,
     image:
-      "https://www.jinyibo.com/js/tinymce/demo/images/202202/19/cab73ab7dce778c8b7fe2eecd72530f9.jpg",
+      "/images/products/service/technical-support.webp",
     content: [
       "For services applications, SpectraTech offers a broad range of advanced analytical support.",
       "Chemical and physical elemental analyses are frequently critical to your production. Our dedicated remote and on-site troubleshooting assistance is led by experienced engineers to ensure you can rely on your instruments.",
@@ -145,7 +145,7 @@ export default function ServiceClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-black/60 z-10" />
           <Image
-            src="https://www.jinyibo.com/uploadfile/bannerimg/16454208990999.jpg"
+            src="/images/products/banners/hero-banner.webp"
             alt="Service and Support"
             fill
             className="object-cover"
@@ -328,15 +328,15 @@ export default function ServiceClient() {
                               {[
                                 {
                                   name: "W5 Optical Emission Spectrometer",
-                                  img: "https://www.jinyibo.com/uploadfile/202211/02/05f18243ff29c9ea5bbe117f0b74c73f_medium.jpg",
+                                  img: "/images/products/oes/m5-oes-main.webp",
                                 },
                                 {
                                   name: "Handheld LIBS Analyzer",
-                                  img: "https://www.jinyibo.com/js/tinymce/demo/images/202202/22/e34e185dcf1194d4a404b647061e338b.jpg",
+                                  img: "/images/products/service/libs-product.webp",
                                 },
                                 {
                                   name: "TY9800 XRF Spectrometer",
-                                  img: "https://www.jinyibo.com/js/tinymce/demo/images/202202/22/20b483fb3999c733c5080c8073632a69.jpg",
+                                  img: "/images/products/service/ty9800-product.webp",
                                 },
                               ].map((item, i) => (
                                 <div

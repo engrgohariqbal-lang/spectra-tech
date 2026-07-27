@@ -37,12 +37,11 @@ export default function ApplicationPage() {
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1581092335397-9583eb92d232?q=80&w=2070&auto=format&fit=crop"
+            src="/images/products/banners/application-hero.webp"
             alt="Industrial Application Hero"
             fill
             className="object-cover object-center"
             priority
-            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/40"></div>
         </div>

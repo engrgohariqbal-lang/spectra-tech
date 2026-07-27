@@ -22,7 +22,7 @@ export default function VideoClient({ videoCategories }) {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 to-slate-800/60 z-10" />
           <Image
-            src="https://picsum.photos/seed/spectratech-video-hero/1920/1080"
+            src="/images/products/banners/video-hero.webp"
             alt="Video Library"
             fill
             className="object-cover"
@@ -108,7 +108,7 @@ export default function VideoClient({ videoCategories }) {
                       <div className="relative aspect-video bg-slate-900 overflow-hidden w-full p-2 rounded-t-3xl border-b border-slate-100">
                         <div className="w-full h-full relative rounded-2xl overflow-hidden">
                           <Image
-                            src={`https://picsum.photos/seed/spectratech-vid-${video.id}/600/400`}
+                            src={`/images/products/misc/video-thumb-${video.id}.webp`}
                             alt={video.title}
                             fill
                             className="object-cover opacity-70 group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"

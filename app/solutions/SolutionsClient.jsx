@@ -25,7 +25,7 @@ export default function SolutionsClient() {
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/60 to-slate-800/60 z-10" />
           <Image
-            src="https://www.jinyibo.com/uploadfile/bannerimg/16454208990999.jpg"
+            src="/images/products/banners/hero-banner.webp"
             alt="Analytical Solutions"
             fill
             className="object-cover"
