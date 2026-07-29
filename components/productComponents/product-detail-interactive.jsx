@@ -32,8 +32,17 @@ export function ProductDetailInteractive({ product, allProducts }) {
   const [specSearch, setSpecSearch] = useState("");
   const [inquiryMessage, setInquiryMessage] = useState("");
 
+  const heroSectionRef = useRef(null);
   const specsSectionRef = useRef(null);
   const inquirySectionRef = useRef(null);
+
+  const handleModelSelect = (model) => {
+    setActiveModel(model);
+    heroSectionRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   // Set initial inquiry message
   useEffect(() => {
@@ -217,11 +226,33 @@ export function ProductDetailInteractive({ product, allProducts }) {
         {/* Main Content Column */}
         <main className="lg:col-span-3 space-y-12">
           {/* Product Category Hero/Overview */}
-          <section className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 lg:p-8">
+          <section
+            ref={heroSectionRef}
+            className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 lg:p-8 scroll-mt-24"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
               {/* Left Column: Image Gallery */}
               <div className="w-full">
-                <ProductGallery images={product.gallery || [product.image]} productName={product.name} />
+                <ProductGallery
+                  images={
+                    activeModel
+                      ? [
+                          activeModel.image,
+                          ...(product.gallery?.filter(
+                            (img) => img !== activeModel.image,
+                          ) ||
+                            [product.image].filter(
+                              (img) => img !== activeModel.image,
+                            )),
+                        ]
+                      : product.gallery || [product.image]
+                  }
+                  productName={
+                    activeModel
+                      ? `${product.name} - Model ${activeModel.name}`
+                      : product.name
+                  }
+                />
               </div>
 
               {/* Right Column: Overview */}
@@ -283,9 +314,10 @@ export function ProductDetailInteractive({ product, allProducts }) {
                 {product.models.map((model) => (
                   <div
                     key={model.name}
-                    className={`bg-white rounded-xl shadow-sm border overflow-hidden flex flex-col group transition-all duration-300 ${
+                    onClick={() => handleModelSelect(model)}
+                    className={`bg-white rounded-xl shadow-sm border overflow-hidden flex flex-col group transition-all duration-300 cursor-pointer ${
                       activeModel?.name === model.name
-                        ? "border-primary/50 shadow-md ring-1 ring-primary/20"
+                        ? "border-primary shadow-md ring-2 ring-primary/30"
                         : "border-slate-100 hover:border-slate-300 hover:shadow-md"
                     }`}
                   >
@@ -331,7 +363,10 @@ export function ProductDetailInteractive({ product, allProducts }) {
                       {/* Action buttons */}
                       <div className="grid grid-cols-2 gap-3 mt-auto">
                         <Button
-                          onClick={() => handleViewSpecs(model)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewSpecs(model);
+                          }}
                           variant="outline"
                           size="sm"
                           className="w-full text-slate-700 border-slate-200 hover:bg-slate-50 text-xs font-semibold"
@@ -340,7 +375,10 @@ export function ProductDetailInteractive({ product, allProducts }) {
                           Specs Details
                         </Button>
                         <Button
-                          onClick={() => handleEnquireNow(model)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEnquireNow(model);
+                          }}
                           size="sm"
                           className="w-full bg-primary hover:bg-secondary text-white text-xs font-semibold"
                         >
@@ -398,9 +436,16 @@ export function ProductDetailInteractive({ product, allProducts }) {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {product.benefits.map((benefit, idx) => (
-                  <div key={idx} className="bg-gradient-to-br from-white to-slate-50 rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-shadow">
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">{benefit.title}</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed">{benefit.description}</p>
+                  <div
+                    key={idx}
+                    className="bg-gradient-to-br from-white to-slate-50 rounded-xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-shadow"
+                  >
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {benefit.description}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -417,31 +462,49 @@ export function ProductDetailInteractive({ product, allProducts }) {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                 <div className="space-y-4">
-                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Downloads</h4>
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">
+                    Downloads
+                  </h4>
                   <div className="flex flex-col gap-3">
-                    <a href={product.additionalInfo.brochureUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
-                      <span className="text-sm font-medium">Product Brochure</span>
+                    <a
+                      href={product.additionalInfo.brochureUrl}
+                      className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group"
+                    >
+                      <span className="text-sm font-medium">
+                        Product Brochure
+                      </span>
                       <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
                     </a>
-                    <a href={product.additionalInfo.manualUrl} className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group">
+                    <a
+                      href={product.additionalInfo.manualUrl}
+                      className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors group"
+                    >
                       <span className="text-sm font-medium">User Manual</span>
                       <Download className="w-4 h-4 text-slate-300 group-hover:text-white" />
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
-                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Warranty & Support</h4>
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">
+                    Warranty & Support
+                  </h4>
                   <p className="text-sm text-slate-200 leading-relaxed">
                     {product.additionalInfo.warranty}
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">Certifications</h4>
+                  <h4 className="text-sm uppercase tracking-wider text-slate-400 font-semibold">
+                    Certifications
+                  </h4>
                   <div className="flex flex-wrap gap-2">
                     {product.additionalInfo.certifications.map((cert, idx) => (
-                      <Badge key={idx} variant="outline" className="border-slate-600 text-slate-300 font-medium">
+                      <Badge
+                        key={idx}
+                        variant="outline"
+                        className="border-slate-600 text-slate-300 font-medium"
+                      >
                         {cert}
                       </Badge>
                     ))}
