@@ -15,6 +15,8 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { siteConfig } from "@/lib/data/content";
 import { navigation } from "@/lib/data/navigation";
+import { products } from "@/lib/data/products";
+import { applicationsData } from "@/lib/data/applications";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,11 +33,14 @@ export function Navbar() {
   const [activeSubDropdown, setActiveSubDropdown] = React.useState(null);
   const [openMobileSubmenus, setOpenMobileSubmenus] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchResults, setSearchResults] = React.useState([]);
+  const [isSearchFocused, setIsSearchFocused] = React.useState(false);
   const dropdownRef = React.useRef(null);
+  const searchRef = React.useRef(null);
 
   const toggleMobileSubmenu = (name) => {
     setOpenMobileSubmenus((prev) =>
-      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]
+      prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name],
     );
   };
 
@@ -51,10 +56,98 @@ export function Navbar() {
         setActiveDropdown(null);
         setActiveSubDropdown(null);
       }
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setIsSearchFocused(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  React.useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    const q = searchQuery.toLowerCase();
+    const results = [];
+
+    // Products & Models
+    products.forEach((p) => {
+      if (
+        p.name.toLowerCase().includes(q) ||
+        p.description?.toLowerCase().includes(q)
+      ) {
+        results.push({
+          type: "Product",
+          title: p.name,
+          href: `/products/${p.slug}`,
+          desc: p.description,
+        });
+      }
+      if (p.models) {
+        p.models.forEach((m) => {
+          if (
+            m.name.toLowerCase().includes(q) ||
+            m.description?.toLowerCase().includes(q)
+          ) {
+            results.push({
+              type: "Model",
+              title: `${m.name} ${p.name}`,
+              href: `/products/${p.slug}/${m.name.toLowerCase().replace(/\s+/g, "-")}`,
+              desc: m.description,
+            });
+          }
+        });
+      }
+    });
+
+    // Applications
+    applicationsData.forEach((a) => {
+      if (
+        a.name.toLowerCase().includes(q) ||
+        a.shortDesc?.toLowerCase().includes(q)
+      ) {
+        results.push({
+          type: "Application",
+          title: a.name,
+          href: `/application/${a.slug}`,
+          desc: a.shortDesc,
+        });
+      }
+    });
+
+    // Pages (from navigation)
+    const flattenNav = (navItems) => {
+      let items = [];
+      navItems.forEach((n) => {
+        if (n.href && !n.href.includes("#") && n.name !== "Products") {
+          items.push({
+            type: "Page",
+            title: n.name,
+            href: n.href,
+            desc: `Navigate to ${n.name}`,
+          });
+        }
+        if (n.children) {
+          items = items.concat(flattenNav(n.children));
+        }
+      });
+      return items;
+    };
+
+    const allNav = flattenNav(navigation);
+    allNav.forEach((n) => {
+      if (n.title.toLowerCase().includes(q)) {
+        if (!results.some((r) => r.href === n.href)) {
+          results.push(n);
+        }
+      }
+    });
+
+    setSearchResults(results.slice(0, 8));
+  }, [searchQuery]);
 
   return (
     <header className="fixed top-0 w-full z-50 shadow-md">
@@ -75,25 +168,83 @@ export function Navbar() {
           </Link>
 
           {/* Search Bar — desktop only */}
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="hidden md:flex flex-1 max-w-md mx-6 items-center border border-slate-300 rounded overflow-hidden"
-          >
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search info"
-              className="flex-1 px-4 py-2 text-sm outline-none bg-white text-slate-700 placeholder:text-slate-400"
-            />
-            <button
-              type="submit"
-              className="bg-primary px-4 py-2 text-white hover:bg-primary/90 transition-colors shrink-0"
-              aria-label="Search"
+          <div className="hidden md:flex flex-1 max-w-md mx-6 relative" ref={searchRef}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+              className="flex flex-1 items-center border border-slate-300 rounded overflow-hidden"
             >
-              <Search className="w-4 h-4" />
-            </button>
-          </form>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setIsSearchFocused(true);
+                }}
+                onFocus={() => setIsSearchFocused(true)}
+                placeholder="Search info"
+                className="flex-1 px-4 py-2 text-sm outline-none bg-white text-slate-700 placeholder:text-slate-400"
+              />
+              <button
+                type="submit"
+                className="bg-primary px-4 py-2 text-white hover:bg-primary/90 transition-colors shrink-0"
+                aria-label="Search"
+              >
+                <Search className="w-4 h-4" />
+              </button>
+            </form>
+
+            <AnimatePresence>
+              {isSearchFocused && searchQuery.trim() !== "" && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 shadow-xl rounded-lg overflow-hidden z-50 max-h-[70vh] overflow-y-auto"
+                >
+                  {searchResults.length > 0 ? (
+                    <ul className="py-2">
+                      {searchResults.map((result, index) => (
+                        <li key={`${result.href}-${index}`}>
+                          <Link
+                            href={result.href}
+                            onClick={() => {
+                              setIsSearchFocused(false);
+                              setSearchQuery("");
+                            }}
+                            className="block px-4 py-3 hover:bg-slate-50 transition-colors border-b border-slate-100 last:border-b-0"
+                          >
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="font-semibold text-slate-800 text-sm">
+                                {result.title}
+                              </span>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2 py-0.5 rounded">
+                                {result.type}
+                              </span>
+                            </div>
+                            {result.desc && (
+                              <p className="text-xs text-slate-500 line-clamp-2">
+                                {result.desc}
+                              </p>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <div className="py-8 px-4 text-center">
+                      <p className="text-slate-500 text-sm font-semibold">Not Found</p>
+                      <p className="text-slate-400 text-xs mt-1">
+                        No results matching "{searchQuery}"
+                      </p>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Contact Info — desktop */}
           <div className="hidden md:flex items-center gap-6 shrink-0">
@@ -176,19 +327,27 @@ export function Navbar() {
                               {child.children ? (
                                 <>
                                   <button
-                                    onClick={() => toggleMobileSubmenu(child.name)}
+                                    onClick={() =>
+                                      toggleMobileSubmenu(child.name)
+                                    }
                                     className="flex items-center justify-between w-full text-sm font-semibold text-slate-600 hover:text-primary py-2.5 border-l-2 border-transparent hover:border-primary pl-3 pr-2 transition-all"
                                   >
-                                    <span className="text-left">{child.name}</span>
+                                    <span className="text-left">
+                                      {child.name}
+                                    </span>
                                     <ChevronDown
                                       className={cn(
                                         "w-4 h-4 transition-transform duration-200",
-                                        openMobileSubmenus.includes(child.name) && "rotate-180"
+                                        openMobileSubmenus.includes(
+                                          child.name,
+                                        ) && "rotate-180",
                                       )}
                                     />
                                   </button>
                                   <AnimatePresence>
-                                    {openMobileSubmenus.includes(child.name) && (
+                                    {openMobileSubmenus.includes(
+                                      child.name,
+                                    ) && (
                                       <motion.div
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: "auto", opacity: 1 }}
