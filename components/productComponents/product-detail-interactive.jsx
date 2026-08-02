@@ -32,6 +32,11 @@ export function ProductDetailInteractive({ product, allProducts }) {
   const [specSearch, setSpecSearch] = useState("");
   const [inquiryMessage, setInquiryMessage] = useState("");
 
+  useEffect(() => {
+    setActiveModel(product.models.length > 0 ? product.models[0] : null);
+    setSpecSearch("");
+  }, [product]);
+
   const heroSectionRef = useRef(null);
   const specsSectionRef = useRef(null);
   const inquirySectionRef = useRef(null);

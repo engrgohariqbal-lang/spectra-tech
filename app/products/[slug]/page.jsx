@@ -35,7 +35,7 @@ export default async function ProductPage({ params }) {
 
   return (
     <div className="bg-slate-50 min-h-screen">
-      <ProductDetailInteractive product={product} allProducts={allProducts} />
+      <ProductDetailInteractive key={product.id} product={product} allProducts={allProducts} />
     </div>
   );
 }

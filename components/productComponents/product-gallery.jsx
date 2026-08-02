@@ -15,6 +15,10 @@ export function ProductGallery({ images = [], productName = "Product Image" }) {
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const containerRef = useRef(null);
 
+  React.useEffect(() => {
+    setActiveIndex(0);
+  }, [productName]);
+
   if (!images || images.length === 0) {
     return (
       <div className="w-full aspect-[4/3] sm:aspect-square bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100">
