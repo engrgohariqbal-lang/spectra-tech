@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   CheckCircle,
   ArrowRight,
@@ -25,29 +26,25 @@ import { Badge } from "@/components/ui/badge";
 import { ContactForm } from "@/components/contactComponents/contact-form";
 import { ProductGallery } from "./product-gallery";
 
-export function ProductDetailInteractive({ product, allProducts }) {
-  const [activeModel, setActiveModel] = useState(
-    product.models.length > 0 ? product.models[0] : null,
-  );
+export function ProductDetailInteractive({ product, allProducts, modelSlug = null }) {
+  const router = useRouter();
+  
+  const activeModel = modelSlug
+    ? product.models.find(
+        (m) => m.name.toLowerCase().replace(/\s+/g, "-") === modelSlug
+      )
+    : null;
+
   const [specSearch, setSpecSearch] = useState("");
   const [inquiryMessage, setInquiryMessage] = useState("");
 
   useEffect(() => {
-    setActiveModel(product.models.length > 0 ? product.models[0] : null);
     setSpecSearch("");
-  }, [product]);
+  }, [product, activeModel]);
 
   const heroSectionRef = useRef(null);
   const specsSectionRef = useRef(null);
   const inquirySectionRef = useRef(null);
-
-  const handleModelSelect = (model) => {
-    setActiveModel(model);
-    heroSectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
 
   // Set initial inquiry message
   useEffect(() => {
@@ -59,28 +56,25 @@ export function ProductDetailInteractive({ product, allProducts }) {
   }, [product.name, activeModel]);
 
   const handleViewSpecs = (model) => {
-    setActiveModel(model);
-    specsSectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    if (model && (!activeModel || activeModel.name !== model.name)) {
+      router.push(`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#specs`);
+    } else {
+      specsSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
   const handleEnquireNow = (model) => {
-    if (model) {
-      setActiveModel(model);
-      setInquiryMessage(
-        `Hello, I would like to request technical documentation and a quote for the ${product.name} - Model ${model.name}. Please get in touch with me.`,
-      );
+    if (model && (!activeModel || activeModel.name !== model.name)) {
+      router.push(`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#inquiry`);
     } else {
-      setInquiryMessage(
-        `Hello, I would like to request technical documentation and a quote for the ${product.name}. Please get in touch with me.`,
-      );
+      inquirySectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
-    inquirySectionRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   // Helper to filter specs based on search term
@@ -241,15 +235,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
                 <ProductGallery
                   images={
                     activeModel
-                      ? [
-                          activeModel.image,
-                          ...(product.gallery?.filter(
-                            (img) => img !== activeModel.image,
-                          ) ||
-                            [product.image].filter(
-                              (img) => img !== activeModel.image,
-                            )),
-                        ]
+                      ? [activeModel.image]
                       : product.gallery || [product.image]
                   }
                   productName={
@@ -266,14 +252,18 @@ export function ProductDetailInteractive({ product, allProducts }) {
                   Analytical Solution
                 </Badge>
                 <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-                  {product.name}
+                  {activeModel
+                      ? `${product.name} - Model ${activeModel.name}`
+                      : product.name}
                 </h1>
                 <p className="text-base text-slate-600 leading-relaxed mb-6">
-                  {product.longDescription || product.description}
+                  {activeModel
+                      ? activeModel.description
+                      : (product.longDescription || product.description)}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-100 pt-6 mt-2">
-                  {product.features.map((feature, idx) => (
+                  {(activeModel ? activeModel.features : product.features).map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
                       <span className="text-sm text-slate-700 leading-snug">
@@ -317,9 +307,9 @@ export function ProductDetailInteractive({ product, allProducts }) {
             {product.models.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {product.models.map((model) => (
-                  <div
+                  <Link
+                    href={`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}`}
                     key={model.name}
-                    onClick={() => handleModelSelect(model)}
                     className={`bg-white rounded-xl shadow-sm border overflow-hidden flex flex-col group transition-all duration-300 cursor-pointer ${
                       activeModel?.name === model.name
                         ? "border-primary shadow-md ring-2 ring-primary/30"
@@ -367,31 +357,28 @@ export function ProductDetailInteractive({ product, allProducts }) {
 
                       {/* Action buttons */}
                       <div className="grid grid-cols-2 gap-3 mt-auto">
-                        <Button
+                        <div
                           onClick={(e) => {
-                            e.stopPropagation();
+                            e.preventDefault();
                             handleViewSpecs(model);
                           }}
-                          variant="outline"
-                          size="sm"
-                          className="w-full text-slate-700 border-slate-200 hover:bg-slate-50 text-xs font-semibold"
+                          className="w-full flex items-center justify-center text-slate-700 border border-slate-200 hover:bg-slate-50 text-xs font-semibold h-9 rounded-md transition-colors"
                         >
                           <FileSpreadsheet className="w-3.5 h-3.5 mr-1.5" />
                           Specs Details
-                        </Button>
-                        <Button
+                        </div>
+                        <div
                           onClick={(e) => {
-                            e.stopPropagation();
+                            e.preventDefault();
                             handleEnquireNow(model);
                           }}
-                          size="sm"
-                          className="w-full bg-primary hover:bg-secondary text-white text-xs font-semibold"
+                          className="w-full flex items-center justify-center bg-primary hover:bg-secondary text-white text-xs font-semibold h-9 rounded-md transition-colors"
                         >
                           Enquire Now
-                        </Button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ) : (
@@ -522,6 +509,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
           {/* Interactive Specifications Table Section */}
           {product.models.length > 0 && activeModel && (
             <section
+              id="specs"
               ref={specsSectionRef}
               className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden scroll-mt-24"
             >
@@ -541,9 +529,9 @@ export function ProductDetailInteractive({ product, allProducts }) {
                   {/* Model Tab Selectors */}
                   <div className="flex bg-slate-800 rounded-lg p-1 border border-slate-700/50 self-start md:self-auto overflow-x-auto max-w-full">
                     {product.models.map((model) => (
-                      <button
+                      <Link
                         key={model.name}
-                        onClick={() => setActiveModel(model)}
+                        href={`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#specs`}
                         className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all whitespace-nowrap ${
                           activeModel.name === model.name
                             ? "bg-primary text-white shadow-xs"
@@ -551,7 +539,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
                         }`}
                       >
                         Model {model.name}
-                      </button>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -644,6 +632,7 @@ export function ProductDetailInteractive({ product, allProducts }) {
 
           {/* Interactive Request Quote Form Section */}
           <section
+            id="inquiry"
             ref={inquirySectionRef}
             className="relative rounded-4xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden scroll-mt-24 bg-white flex flex-col md:flex-row border border-slate-100/50 md:my-16 my-10"
           >
