@@ -235,7 +235,7 @@ export function ProductDetailInteractive({ product, allProducts, modelSlug = nul
                 <ProductGallery
                   images={
                     activeModel
-                      ? [activeModel.image]
+                      ? (activeModel.gallery || [activeModel.image])
                       : product.gallery || [product.image]
                   }
                   productName={
