@@ -168,7 +168,10 @@ export function Navbar() {
           </Link>
 
           {/* Search Bar — desktop only */}
-          <div className="hidden md:flex flex-1 max-w-md mx-6 relative" ref={searchRef}>
+          <div
+            className="hidden md:flex flex-1 max-w-md mx-6 relative"
+            ref={searchRef}
+          >
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -235,7 +238,9 @@ export function Navbar() {
                     </ul>
                   ) : (
                     <div className="py-8 px-4 text-center">
-                      <p className="text-slate-500 text-sm font-semibold">Not Found</p>
+                      <p className="text-slate-500 text-sm font-semibold">
+                        Not Found
+                      </p>
                       <p className="text-slate-400 text-xs mt-1">
                         No results matching "{searchQuery}"
                       </p>
@@ -559,7 +564,7 @@ export function Navbar() {
                                         }}
                                         className="absolute top-0 left-full pl-1 w-80"
                                       >
-                                        <div className="bg-white border border-slate-200 shadow-xl rounded-xl p-1.5 flex flex-col gap-1">
+                                        <div className="bg-white border border-slate-200 shadow-xl rounded-xl p-1.5 flex flex-col gap-1 max-h-[35vh] overflow-y-auto">
                                           {child.children.map((subChild) => (
                                             <Link
                                               key={subChild.name}
