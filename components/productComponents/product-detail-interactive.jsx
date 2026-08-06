@@ -26,12 +26,16 @@ import { Badge } from "@/components/ui/badge";
 import { ContactForm } from "@/components/contactComponents/contact-form";
 import { ProductGallery } from "./product-gallery";
 
-export function ProductDetailInteractive({ product, allProducts, modelSlug = null }) {
+export function ProductDetailInteractive({
+  product,
+  allProducts,
+  modelSlug = null,
+}) {
   const router = useRouter();
-  
+
   const activeModel = modelSlug
     ? product.models.find(
-        (m) => m.name.toLowerCase().replace(/\s+/g, "-") === modelSlug
+        (m) => m.name.toLowerCase().replace(/\s+/g, "-") === modelSlug,
       )
     : null;
 
@@ -57,7 +61,9 @@ export function ProductDetailInteractive({ product, allProducts, modelSlug = nul
 
   const handleViewSpecs = (model) => {
     if (model && (!activeModel || activeModel.name !== model.name)) {
-      router.push(`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#specs`);
+      router.push(
+        `/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#specs`,
+      );
     } else {
       specsSectionRef.current?.scrollIntoView({
         behavior: "smooth",
@@ -68,7 +74,9 @@ export function ProductDetailInteractive({ product, allProducts, modelSlug = nul
 
   const handleEnquireNow = (model) => {
     if (model && (!activeModel || activeModel.name !== model.name)) {
-      router.push(`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#inquiry`);
+      router.push(
+        `/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#inquiry`,
+      );
     } else {
       inquirySectionRef.current?.scrollIntoView({
         behavior: "smooth",
@@ -235,7 +243,7 @@ export function ProductDetailInteractive({ product, allProducts, modelSlug = nul
                 <ProductGallery
                   images={
                     activeModel
-                      ? (activeModel.gallery || [activeModel.image])
+                      ? activeModel.gallery || [activeModel.image]
                       : product.gallery || [product.image]
                   }
                   productName={
@@ -253,24 +261,26 @@ export function ProductDetailInteractive({ product, allProducts, modelSlug = nul
                 </Badge>
                 <h1 className="text-3xl lg:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
                   {activeModel
-                      ? `${product.name} - Model ${activeModel.name}`
-                      : product.name}
+                    ? `${product.name} - Model ${activeModel.name}`
+                    : product.name}
                 </h1>
                 <p className="text-base text-slate-600 leading-relaxed mb-6">
                   {activeModel
-                      ? activeModel.description
-                      : (product.longDescription || product.description)}
+                    ? activeModel.description
+                    : product.longDescription || product.description}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-slate-100 pt-6 mt-2">
-                  {(activeModel ? activeModel.features : product.features).map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                      <span className="text-sm text-slate-700 leading-snug">
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
+                  {(activeModel ? activeModel.features : product.features).map(
+                    (feature, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                        <span className="text-sm text-slate-700 leading-snug">
+                          {feature}
+                        </span>
+                      </div>
+                    ),
+                  )}
                 </div>
 
                 <div className="mt-8 flex flex-wrap gap-4">
@@ -294,6 +304,130 @@ export function ProductDetailInteractive({ product, allProducts, modelSlug = nul
               </div>
             </div>
           </section>
+
+          {/* Interactive Specifications Table Section */}
+          {product.models.length > 0 && activeModel && (
+            <section
+              id="specs"
+              ref={specsSectionRef}
+              className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden scroll-mt-40"
+            >
+              {/* Table header with tabs */}
+              <div className="bg-slate-900 text-white px-8 py-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div>
+                    <h3 className="text-xl font-bold flex items-center gap-2">
+                      <FileSpreadsheet className="w-5 h-5 text-accent" />
+                      Technical Specifications
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Compare parameters for the selected model.
+                    </p>
+                  </div>
+
+                  {/* Model Tab Selectors */}
+                  <div className="flex bg-slate-800 rounded-lg p-1 border border-slate-700/50 self-start md:self-auto overflow-x-auto max-w-full">
+                    {product.models.map((model) => (
+                      <Link
+                        key={model.name}
+                        href={`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#specs`}
+                        className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all whitespace-nowrap ${
+                          activeModel.name === model.name
+                            ? "bg-primary text-white shadow-xs"
+                            : "text-slate-400 hover:text-white"
+                        }`}
+                      >
+                        Model {model.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Specs Table Actions Bar */}
+              <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    Active Spec:
+                  </span>
+                  <Badge
+                    variant="secondary"
+                    className="bg-primary/10 text-primary hover:bg-primary/20 border-none font-bold"
+                  >
+                    Model {activeModel.name}
+                  </Badge>
+                </div>
+
+                {/* Spec Search bar */}
+                <div className="relative max-w-xs w-full">
+                  <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Search specifications..."
+                    value={specSearch}
+                    onChange={(e) => setSpecSearch(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              {/* Table Data */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-100/50 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
+                      <th className="px-6 py-4 w-1/3">Parameter</th>
+                      <th className="px-6 py-4 w-2/3">Specification Detail</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {Object.keys(filteredSpecs).length > 0 ? (
+                      Object.entries(filteredSpecs).map(([category, items]) => (
+                        <React.Fragment key={category}>
+                          {/* Category Header Row */}
+                          <tr className="bg-slate-50/60 font-semibold text-slate-900 border-t border-slate-200">
+                            <td
+                              colSpan="2"
+                              className="px-6 py-3 text-xs uppercase tracking-wider text-primary font-bold"
+                            >
+                              {category}
+                            </td>
+                          </tr>
+                          {/* Parameter rows */}
+                          {Object.entries(items).map(
+                            ([paramName, paramVal]) => (
+                              <tr
+                                key={paramName}
+                                className="hover:bg-slate-50/40 transition-colors"
+                              >
+                                <td className="px-6 py-3.5 text-sm font-medium text-slate-700 border-r border-slate-100">
+                                  {paramName}
+                                </td>
+                                <td className="px-6 py-3.5 text-sm text-slate-600 leading-relaxed font-sans">
+                                  {paramVal}
+                                </td>
+                              </tr>
+                            ),
+                          )}
+                        </React.Fragment>
+                      ))
+                    ) : (
+                      <tr>
+                        <td
+                          colSpan="2"
+                          className="px-6 py-12 text-center text-slate-500 text-sm"
+                        >
+                          {specSearch
+                            ? "No parameters matched your search term."
+                            : "No specifications specified for this model."}
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
 
           {/* Models Grid Section */}
           <section className="space-y-6">
@@ -506,135 +640,11 @@ export function ProductDetailInteractive({ product, allProducts, modelSlug = nul
             </section>
           )}
 
-          {/* Interactive Specifications Table Section */}
-          {product.models.length > 0 && activeModel && (
-            <section
-              id="specs"
-              ref={specsSectionRef}
-              className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden scroll-mt-24"
-            >
-              {/* Table header with tabs */}
-              <div className="bg-slate-900 text-white px-8 py-6">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div>
-                    <h3 className="text-xl font-bold flex items-center gap-2">
-                      <FileSpreadsheet className="w-5 h-5 text-accent" />
-                      Technical Specifications
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">
-                      Compare parameters for the selected model.
-                    </p>
-                  </div>
-
-                  {/* Model Tab Selectors */}
-                  <div className="flex bg-slate-800 rounded-lg p-1 border border-slate-700/50 self-start md:self-auto overflow-x-auto max-w-full">
-                    {product.models.map((model) => (
-                      <Link
-                        key={model.name}
-                        href={`/products/${product.slug}/${model.name.toLowerCase().replace(/\s+/g, "-")}#specs`}
-                        className={`px-4 py-1.5 rounded-md text-xs font-bold transition-all whitespace-nowrap ${
-                          activeModel.name === model.name
-                            ? "bg-primary text-white shadow-xs"
-                            : "text-slate-400 hover:text-white"
-                        }`}
-                      >
-                        Model {model.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Specs Table Actions Bar */}
-              <div className="p-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                    Active Spec:
-                  </span>
-                  <Badge
-                    variant="secondary"
-                    className="bg-primary/10 text-primary hover:bg-primary/20 border-none font-bold"
-                  >
-                    Model {activeModel.name}
-                  </Badge>
-                </div>
-
-                {/* Spec Search bar */}
-                <div className="relative max-w-xs w-full">
-                  <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-                  <input
-                    type="text"
-                    placeholder="Search specifications..."
-                    value={specSearch}
-                    onChange={(e) => setSpecSearch(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-400"
-                  />
-                </div>
-              </div>
-
-              {/* Table Data */}
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-slate-100/50 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
-                      <th className="px-6 py-4 w-1/3">Parameter</th>
-                      <th className="px-6 py-4 w-2/3">Specification Detail</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {Object.keys(filteredSpecs).length > 0 ? (
-                      Object.entries(filteredSpecs).map(([category, items]) => (
-                        <React.Fragment key={category}>
-                          {/* Category Header Row */}
-                          <tr className="bg-slate-50/60 font-semibold text-slate-900 border-t border-slate-200">
-                            <td
-                              colSpan="2"
-                              className="px-6 py-3 text-xs uppercase tracking-wider text-primary font-bold"
-                            >
-                              {category}
-                            </td>
-                          </tr>
-                          {/* Parameter rows */}
-                          {Object.entries(items).map(
-                            ([paramName, paramVal]) => (
-                              <tr
-                                key={paramName}
-                                className="hover:bg-slate-50/40 transition-colors"
-                              >
-                                <td className="px-6 py-3.5 text-sm font-medium text-slate-700 border-r border-slate-100">
-                                  {paramName}
-                                </td>
-                                <td className="px-6 py-3.5 text-sm text-slate-600 leading-relaxed font-sans">
-                                  {paramVal}
-                                </td>
-                              </tr>
-                            ),
-                          )}
-                        </React.Fragment>
-                      ))
-                    ) : (
-                      <tr>
-                        <td
-                          colSpan="2"
-                          className="px-6 py-12 text-center text-slate-500 text-sm"
-                        >
-                          {specSearch
-                            ? "No parameters matched your search term."
-                            : "No specifications specified for this model."}
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          )}
-
           {/* Interactive Request Quote Form Section */}
           <section
             id="inquiry"
             ref={inquirySectionRef}
-            className="relative rounded-4xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden scroll-mt-24 bg-white flex flex-col md:flex-row border border-slate-100/50 md:my-16 my-10"
+            className="relative rounded-4xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden scroll-mt-40 bg-white flex flex-col md:flex-row border border-slate-100/50 md:my-16 my-10"
           >
             {/* Left/Top Content - Informational Side */}
             <div className="md:w-5/12 bg-primary p-10 md:p-14 text-white relative overflow-hidden flex flex-col justify-center shrink-0">
