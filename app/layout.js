@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col font-sans">
         <Navbar />
         <ContactSlidePanel />
-        <RouteLoader />
+        {/* <RouteLoader /> */}
         <main className="flex-1 pt-[72px] md:pt-[120px]">{children}</main>
         <Footer />
         <ChatbaseWidget />
