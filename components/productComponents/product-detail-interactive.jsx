@@ -90,8 +90,23 @@ export function ProductDetailInteractive({
     if (!specs) return {};
     if (!specSearch.trim()) return specs;
 
-    const filtered = {};
     const searchLower = specSearch.toLowerCase();
+    
+    // For grid format specs
+    if (specs.table_type === 'grid') {
+      const filteredCategories = {};
+      Object.entries(specs.categories).forEach(([category, rows]) => {
+        const matchingRows = rows.filter(row => 
+          row.some(cell => cell.toLowerCase().includes(searchLower))
+        );
+        if (category.toLowerCase().includes(searchLower) || matchingRows.length > 0) {
+          filteredCategories[category] = matchingRows.length > 0 ? matchingRows : rows;
+        }
+      });
+      return { table_type: 'grid', categories: filteredCategories };
+    }
+
+    const filtered = {};
 
     Object.entries(specs).forEach(([category, fields]) => {
       const matchingFields = {};
@@ -233,6 +248,7 @@ export function ProductDetailInteractive({
         {/* Main Content Column */}
         <main className="lg:col-span-3 space-y-12">
           {/* Product Category Hero/Overview */}
+          {!(product.slug === "crms-consumables" && !activeModel) && (
           <section
             ref={heroSectionRef}
             className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 lg:p-8 scroll-mt-24"
@@ -304,6 +320,7 @@ export function ProductDetailInteractive({
               </div>
             </div>
           </section>
+          )}
 
           {/* Interactive Specifications Table Section */}
           {product.models.length > 0 && activeModel && (
@@ -374,47 +391,67 @@ export function ProductDetailInteractive({
               {/* Table Data */}
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-slate-100/50 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
-                      <th className="px-6 py-4 w-1/3">Parameter</th>
-                      <th className="px-6 py-4 w-2/3">Specification Detail</th>
-                    </tr>
-                  </thead>
+                  {!(filteredSpecs.table_type === 'grid') && (
+                    <thead>
+                      <tr className="bg-slate-100/50 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
+                        <th className="px-6 py-4 w-1/3">Parameter</th>
+                        <th className="px-6 py-4 w-2/3">Specification Detail</th>
+                      </tr>
+                    </thead>
+                  )}
                   <tbody className="divide-y divide-slate-100">
-                    {Object.keys(filteredSpecs).length > 0 ? (
-                      Object.entries(filteredSpecs).map(([category, items]) => (
+                    {Object.keys(filteredSpecs.table_type === 'grid' ? filteredSpecs.categories || {} : filteredSpecs).length > 0 ? (
+                      Object.entries(filteredSpecs.table_type === 'grid' ? filteredSpecs.categories : filteredSpecs).map(([category, items]) => (
                         <React.Fragment key={category}>
                           {/* Category Header Row */}
                           <tr className="bg-slate-50/60 font-semibold text-slate-900 border-t border-slate-200">
                             <td
-                              colSpan="2"
-                              className="px-6 py-3 text-xs uppercase tracking-wider text-primary font-bold"
+                              colSpan={filteredSpecs.table_type === 'grid' ? 4 : 2}
+                              className="px-6 py-3 text-xs uppercase tracking-wider text-primary font-bold text-center"
                             >
                               {category}
                             </td>
                           </tr>
                           {/* Parameter rows */}
-                          {Object.entries(items).map(
-                            ([paramName, paramVal]) => (
+                          {filteredSpecs.table_type === 'grid' ? (
+                            items.map((row, rowIdx) => (
                               <tr
-                                key={paramName}
+                                key={rowIdx}
                                 className="hover:bg-slate-50/40 transition-colors"
                               >
-                                <td className="px-6 py-3.5 text-sm font-medium text-slate-700 border-r border-slate-100">
-                                  {paramName}
-                                </td>
-                                <td className="px-6 py-3.5 text-sm text-slate-600 leading-relaxed font-sans">
-                                  {paramVal}
-                                </td>
+                                {row.map((cell, cellIdx) => (
+                                  <td key={cellIdx} className="px-6 py-3.5 text-sm font-medium text-slate-700 border border-slate-100 text-center whitespace-pre-wrap">
+                                    {cell}
+                                  </td>
+                                ))}
+                                {Array.from({ length: 4 - row.length }).map((_, idx) => (
+                                  <td key={`empty-${idx}`} className="px-6 py-3.5 border border-slate-100"></td>
+                                ))}
                               </tr>
-                            ),
+                            ))
+                          ) : (
+                            Object.entries(items).map(
+                              ([paramName, paramVal]) => (
+                                <tr
+                                  key={paramName}
+                                  className="hover:bg-slate-50/40 transition-colors"
+                                >
+                                  <td className="px-6 py-3.5 text-sm font-medium text-slate-700 border-r border-slate-100">
+                                    {paramName}
+                                  </td>
+                                  <td className="px-6 py-3.5 text-sm text-slate-600 leading-relaxed font-sans">
+                                    {paramVal}
+                                  </td>
+                                </tr>
+                              ),
+                            )
                           )}
                         </React.Fragment>
                       ))
                     ) : (
                       <tr>
                         <td
-                          colSpan="2"
+                          colSpan={filteredSpecs.table_type === 'grid' ? 4 : 2}
                           className="px-6 py-12 text-center text-slate-500 text-sm"
                         >
                           {specSearch
