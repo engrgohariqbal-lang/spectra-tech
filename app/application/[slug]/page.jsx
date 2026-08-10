@@ -80,19 +80,51 @@ export default async function ApplicationDetailPage({ params }) {
           </div>
 
           {/* Application Content / Description */}
-          <div className="prose prose-lg prose-slate max-w-none text-[#555] leading-loose mb-12">
-            <p className="mb-6">{application.content}</p>
+          <div className="max-w-none text-[#555] text-[17px] leading-[1.8] mb-12 font-sans">
+            <h2 className="text-2xl font-bold text-center text-[#555] mb-8 mt-4">
+              Technical Cleanliness Inspection Application in the {application.name === "Electronics & Semiconductor" ? "Electronics and Semiconductor" : application.name} {(application.name.includes("Appliance") || application.name.includes("Industry") || application.name.includes("Foundry")) ? "" : "Industry"}
+            </h2>
 
-            <p>
-              <strong>Benefits of {application.name} applications:</strong>
-            </p>
-            <ul className="list-disc pl-5 mt-2">
-              {application.benefits.map((benefit, idx) => (
-                <li key={idx} className="mb-2">
-                  {benefit}
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-0">
+              {application.content.split('\n').map((line, idx) => {
+                if (!line.trim()) return <div key={idx} className="h-6"></div>;
+                const isHeading = /^\d+(\.\d+)?\.?\s/.test(line);
+                if (isHeading) {
+                  return (
+                    <div key={idx} className="font-bold text-[#555] mt-6 mb-1">
+                      {line}
+                    </div>
+                  );
+                }
+                if (line.trim().startsWith('-')) {
+                  return (
+                    <div key={idx} className="pl-4 text-[#666]">
+                      {line}
+                    </div>
+                  );
+                }
+                return (
+                  <p key={idx} className="text-[#666]">
+                    {line}
+                  </p>
+                );
+              })}
+            </div>
+
+            {application.benefits && application.benefits.length > 0 && (
+              <div className="mt-8">
+                <p>
+                  <strong>Benefits of {application.name} applications:</strong>
+                </p>
+                <ul className="list-disc pl-5 mt-2">
+                  {application.benefits.map((benefit, idx) => (
+                    <li key={idx} className="mb-2 text-[#666]">
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

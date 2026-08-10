@@ -43,7 +43,7 @@ export default function ApplicationPage() {
             className="object-cover object-center"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-600/40 via-slate-900/70 to-slate-600/40"></div>
         </div>
 
         {/* Hero Content */}
@@ -54,7 +54,7 @@ export default function ApplicationPage() {
           <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight drop-shadow-md">
             Industries We Serve
           </h1>
-          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-light leading-relaxed">
             Delivering critical data and precision analysis across a wide
             spectrum of heavy industries, ensuring quality, safety, and
             efficiency worldwide.
