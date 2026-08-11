@@ -138,11 +138,7 @@ export default function SolutionsClient() {
                   </motion.p>
 
                   <motion.ul variants={stagger} className="space-y-4 mb-10">
-                    {[
-                      "High precision elemental and trace analysis",
-                      "Rapid analysis times ensuring high throughput",
-                      "Robust industrial design for continuous operation",
-                    ].map((item, i) => (
+                    {solution.features?.map((item, i) => (
                       <motion.li
                         variants={fadeIn}
                         key={i}
